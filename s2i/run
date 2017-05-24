@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+# Runs the nodejs application server.
+run_node() {
+  exec npm run -d $NPM_RUN
+}
+
+RUNNODE=true
+
+# If the official dockerhub node image is used, skip the SCL setup below
+# and just run the nodejs server
+if [ -d "/usr/src/app" ]; then
+  run_node
+  RUNNODE=false
+fi
+
+# Allow users to inspect/debug the builder image itself, by using:
+# $ docker run -i -t openshift/centos-nodejs-builder --debug
+#
+[ "$1" == "--debug" ] && exec /bin/bash
+
+if [ $RUNNODE = true ]; then
+  run_node
+fi

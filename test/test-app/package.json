@@ -1,0 +1,24 @@
+{
+  "name": "node-echo",
+  "version": "0.0.1",
+  "main": "server.js",
+  "author": "Helio Frota",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint test/*.js index.js",
+    "dev": "nodemon --ignore node_modules/ server.js",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-config-semistandard": "*",
+    "eslint-config-standard": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-plugin-react": "*",
+    "eslint-plugin-standard": "*",
+    "nodemon": "*"
+  },
+  "dependencies": {
+    "roi": "*"
+  }
+}
