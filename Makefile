@@ -1,9 +1,8 @@
 FROM=openshift/base-centos7
-IMAGE_NAME=centos7-s2i-nodejs
-NAMESPACE=lanceball
+
 NODE_VERSION=7.10.0
 IMAGE_TAG=latest
-TARGET=$(NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG)
+TARGET=bucharestgold/centos7-s2i-nodejs:$(IMAGE_TAG)
 
 .PHONY: all
 all: build squash test
@@ -23,7 +22,6 @@ test: build squash
 .PHONY: clean
 clean:
 	docker rmi `docker images $(TARGET) -q`
-	docker rmi `docker images $(NAMESPACE)/$(IMAGE_NAME)-testapp -q`
 
 .PHONY: publish
 publish: all

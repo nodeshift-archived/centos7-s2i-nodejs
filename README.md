@@ -186,8 +186,7 @@ make all
 * **`test/`**
 
     This folder contains the [`s2i`](https://github.com/openshift/source-to-image)
-    test framework with simple Node.js echo server, an onbuild test and onbuild test with
-    openshift using `oc cluster up`.
+    test framework with simple Node.js echo server.
 
     * **`test-app/`**
 

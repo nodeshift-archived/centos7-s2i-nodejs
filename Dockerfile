@@ -1,7 +1,5 @@
 FROM openshift/base-centos7
-
-# This image provides a Node.JS environment you can use to run your Node.JS
-# applications.
+# This image provides a Node.JS environment you can use to run your Node.JS applications.
 
 EXPOSE 8080
 
@@ -27,26 +25,12 @@ LABEL io.k8s.description="Platform for building and running Node.js applications
       com.redhat.deployments-dir="/opt/app-root/src" \
       maintainer="Lance Ball <lball@redhat.com>"
 
-# Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/ $STI_SCRIPTS_PATH
-
-RUN set -ex ; \
-  if [ ! -e /opt/app-root ] ; then mkdir /opt/app-root; fi ; \
-  chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
-
-# Each language image can have 'contrib' a directory with extra files needed to
-# run and build the applications.
 COPY ./contrib/ /opt/app-root
 
-RUN set -ex; \
-  /opt/app-root/etc/install_node.sh ; \
-  /opt/app-root/etc/set_passwd_permissions.sh 
+RUN /opt/app-root/etc/install_node.sh
   
 USER 1001
 
-# When the container starts, we always want to make sure the permissions
-# are correct in places we care about
-# ENTRYPOINT ["/opt/app-root/etc/configure_passwd.sh"]
-
-# Set the default CMD to print the usage of the language image
+# Set the default CMD to print the usage
 CMD ${STI_SCRIPTS_PATH}/usage
