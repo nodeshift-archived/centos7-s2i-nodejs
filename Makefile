@@ -1,7 +1,7 @@
 FROM=openshift/base-centos7
 
-NODE_VERSION=7.10.0
-IMAGE_TAG=latest
+NODE_VERSION=4.8.3
+IMAGE_TAG=4.x
 TARGET=bucharestgold/centos7-s2i-nodejs:$(IMAGE_TAG)
 
 .PHONY: all
