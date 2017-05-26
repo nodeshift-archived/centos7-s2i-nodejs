@@ -8,6 +8,7 @@ NODE_VERSION=5.12.0
 NPM_VERSION=3.8.6
 V8_VERSION=4.6.85.32
 IMAGE_TAG=5.x
+LTS_TAG=
 
 TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
 
@@ -33,6 +34,10 @@ test: build squash
 .PHONY: clean
 clean:
 	docker rmi `docker images $(TARGET) -q`
+
+.PHONY: tag
+tag:
+	if [ ! -z $(LTS_TAG) ]; then docker tag $(TARGET) $(IMAGE_NAME):$(LTS_TAG); fi
 
 .PHONY: publish
 publish: all
