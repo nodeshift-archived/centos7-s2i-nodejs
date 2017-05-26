@@ -1,4 +1,5 @@
 FROM=openshift/base-centos7
+IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
 
 # These values are changed in each version branch
 # This is the only place they need to be changed
@@ -8,7 +9,7 @@ NPM_VERSION=4.2.0
 V8_VERSION=5.5.372.43
 IMAGE_TAG=7.x
 
-TARGET=bucharestgold/centos7-s2i-nodejs:$(IMAGE_TAG)
+TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
 
 .PHONY: all
 all: build squash test
