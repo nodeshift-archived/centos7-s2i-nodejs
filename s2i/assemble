@@ -53,7 +53,14 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
 fi
 
 echo "---> Building your Node application from source"
-npm install -s
+
+if [ ! -z "$YARN_ENABLED" ]; then
+	echo "---> Using 'yarn install' with YARN_ARGS"
+	yarn install $YARN_ARGS
+else
+	echo "---> Using 'npm install'"
+	npm install -s
+fi
 
 # Fix source directory permissions
 # fix-permissions ./
