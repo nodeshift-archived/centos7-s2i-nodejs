@@ -7,6 +7,7 @@ NODE_VERSION=6.10.3
 NPM_VERSION=3.10.10
 V8_VERSION=5.1.281.101
 IMAGE_TAG=6.x
+LTS_TAG=Boron
 
 TARGET=bucharestgold/centos7-s2i-nodejs:$(IMAGE_TAG)
 
@@ -32,6 +33,10 @@ test: build squash
 .PHONY: clean
 clean:
 	docker rmi `docker images $(TARGET) -q`
+
+.PHONY: tag
+tag:
+	if [ ! -z $(LTS_TAG) ]; then docker tag $(TARGET) $(IMAGE_NAME):$(LTS_TAG); fi
 
 .PHONY: publish
 publish: all
