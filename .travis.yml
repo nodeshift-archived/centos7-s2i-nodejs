@@ -1,0 +1,26 @@
+dist: trusty
+before_script:
+  - sudo mount --make-shared /
+  - sudo service docker stop
+  - sudo sed -i 's/DOCKER_OPTS=\"/DOCKER_OPTS=\"--insecure-registry 172.30.0.0\/16 /' /etc/default/docker
+  - sudo service docker start
+  - pip install docker-squash
+  - wget https://github.com/openshift/source-to-image/releases/download/v1.1.5/source-to-image-v1.1.5-4dd7721-linux-amd64.tar.gz
+  - tar xvzOf source-to-image-v1.1.5-4dd7721-linux-amd64.tar.gz > s2i.bin
+  - sudo mv s2i.bin /usr/bin/s2i
+  - sudo chmod 755 /usr/bin/s2i
+  - wget https://github.com/openshift/origin/releases/download/v3.6.0-alpha.0/openshift-origin-client-tools-v3.6.0-alpha.0-0343989-linux-64bit.tar.gz
+  - tar xvzOf openshift-origin-client-tools-v3.6.0-alpha.0-0343989-linux-64bit.tar.gz > oc.bin
+  - sudo mv oc.bin /usr/bin/oc
+  - sudo chmod 755 /usr/bin/oc
+
+script:
+  - make all
+
+notifications:
+  irc: "chat.freenode.net#brass-monkey"
+
+branches:
+  only:
+  - master
+  - /^[0-9]+.*$/
