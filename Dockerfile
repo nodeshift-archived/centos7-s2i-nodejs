@@ -7,9 +7,9 @@ EXPOSE 8080
 # See https://docs.npmjs.com/misc/scripts, and your repo's package.json
 # file for possible values of NPM_RUN
 ENV NPM_RUN=start \
-    NODE_VERSION=6.10.3 \
-    NPM_VERSION=3.10.10 \
-    V8_VERSION=5.1.281.101 \
+    NODE_VERSION=5.12.0 \
+    NPM_VERSION=3.8.6 \
+    V8_VERSION=4.6.85.32 \
     NODE_LTS=true \
     NPM_CONFIG_LOGLEVEL=info \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
