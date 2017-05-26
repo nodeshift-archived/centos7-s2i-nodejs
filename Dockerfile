@@ -6,11 +6,15 @@ EXPOSE 8080
 # This image will be initialized with "npm run $NPM_RUN"
 # See https://docs.npmjs.com/misc/scripts, and your repo's package.json
 # file for possible values of NPM_RUN
+ARG NODE_VERSION
+ARG NPM_VERSION
+ARG V8_VERSION
+
 ENV NPM_RUN=start \
-    NODE_VERSION=5.12.0 \
-    NPM_VERSION=3.8.6 \
-    V8_VERSION=4.6.85.32 \
-    NODE_LTS=true \
+    NODE_VERSION=${NODE_VERSION} \
+    NPM_VERSION=${NPM_VERSION} \
+    V8_VERSION=${V8_VERSION} \
+    NODE_LTS=false \
     NPM_CONFIG_LOGLEVEL=info \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH \

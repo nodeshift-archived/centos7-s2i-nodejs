@@ -1,7 +1,13 @@
 FROM=openshift/base-centos7
 
+# These values are changed in each version branch
+# This is the only place they need to be changed
+# other than the README.md file.
 NODE_VERSION=5.12.0
+NPM_VERSION=3.8.6
+V8_VERSION=4.6.85.32
 IMAGE_TAG=5.x
+
 TARGET=bucharestgold/centos7-s2i-nodejs:$(IMAGE_TAG)
 
 .PHONY: all
@@ -9,7 +15,11 @@ all: build squash test
 
 .PHONY: build
 build:
-	docker build -t $(TARGET) .
+	docker build \
+	--build-arg NODE_VERSION=$(NODE_VERSION) \
+	--build-arg NPM_VERSION=$(NPM_VERSION) \
+	--build-arg V8_VERSION=$(V8_VERSION) \
+	-t $(TARGET) .
 
 .PHONY: squash
 squash: 
