@@ -4,10 +4,10 @@ IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
 # These values are changed in each version branch
 # This is the only place they need to be changed
 # other than the README.md file.
-NODE_VERSION=7.10.0
-NPM_VERSION=4.2.0
-V8_VERSION=5.5.372.43
-IMAGE_TAG=latest
+NODE_VERSION=8.0.0
+NPM_VERSION=5.0.0
+V8_VERSION=5.8.283.41
+IMAGE_TAG=8.x
 LTS_TAG=
 
 TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
