@@ -20,7 +20,7 @@ Take the following steps to publish the latest version.
 
 ```sh
 # switch to the branch being published
-git co 7.x 
+git checkout 7.x 
 
 # update with any changes not present locally
 git pull origin 7.x
@@ -45,7 +45,7 @@ make tag publish
 
 # If everything looks good, commit, tag and push to github
 git commit -a -m "(chore) update to Node.js 7.10.1"
-git tag node-7.10.1
+git tag -s node-7.10.1 "Node.js 7.10.1 release"
 git push origin 7.x --follow-tags
 ```
 
@@ -79,13 +79,13 @@ git push origin master
 
 # Now create the 8.x branch. Make sure all is good and publish to
 # Docker hub.
-git co -b 8.x
+git checkout -b 8.x
 make tag publish
 
 # The 8.x branch has all the commits we need
 # right now, since we just made those changes on master.
 # Just tag it with the node version and push.
-git tag node-8.0.0
+git tag -s node-8.0.0 -m "Node.js 8.0.0 release"
 git push origin 8.x --follow-tags
 ```
 
