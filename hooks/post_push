@@ -1,0 +1,19 @@
+#!/bin/bash
+
+eval $(cat versions.mk)
+
+if [ ! -z ${LTS_TAG} ] ; then
+  echo "Tagging with"${LTS_TAG}
+fi
+echo "No LTS tag."
+
+echo "Building image with versions..."
+echo "NODE_VERSION"${NODE_VERSION}
+echo "NPM_VERSION"${NPM_VERSION}
+echo "V8_VERSION"${NPM_VERSION}
+
+docker build \
+	--build-arg NODE_VERSION=$(NODE_VERSION) \
+	--build-arg NPM_VERSION=$(NPM_VERSION) \
+	--build-arg V8_VERSION=$(V8_VERSION) \
+	$(IMAGE_NAME) .
