@@ -29,6 +29,9 @@ grep " node-v${NODE_VERSION}-linux-x64.tar.gz\$" SHASUMS256.txt.asc | sha256sum 
 tar -zxf node-v${NODE_VERSION}-linux-x64.tar.gz -C /usr/local --strip-components=1
 npm install -g npm@${NPM_VERSION} -s &>/dev/null
 
+# Install yarn
+npm install -g yarn -s &>/dev/null
+
 # Delete NPM things that we don't really need (like tests) from node_modules
 find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf 
 
