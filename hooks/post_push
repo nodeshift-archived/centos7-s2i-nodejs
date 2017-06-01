@@ -1,0 +1,9 @@
+#!/bin/bash
+
+eval $(cat versions.mk)
+
+if [ ! -z ${LTS_TAG} ] ; then
+  echo "Tagging with"${LTS_TAG}
+fi
+echo "No LTS tag."
+

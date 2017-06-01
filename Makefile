@@ -4,11 +4,7 @@ IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
 # These values are changed in each version branch
 # This is the only place they need to be changed
 # other than the README.md file.
-NODE_VERSION=6.10.3
-NPM_VERSION=3.10.10
-V8_VERSION=5.1.281.101
-IMAGE_TAG=6.x
-LTS_TAG=Boron
+include versions.mk
 
 TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
 
