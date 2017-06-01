@@ -3,7 +3,9 @@
 eval $(cat versions.mk)
 
 if [ ! -z ${LTS_TAG} ] ; then
-  echo "Tagging with"${LTS_TAG}
+  echo "Tagging with ${LTS_TAG}"
+  docker tag $IMAGE_NAME $DOCKER_REPO:$LTS_TAG
+  docker push $DOCKER_REPO:$LTS_TAG
 fi
 echo "No LTS tag."
 
