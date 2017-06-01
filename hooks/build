@@ -1,0 +1,14 @@
+#!/bin/bash
+
+eval $(cat versions.mk)
+
+echo "Building image with versions..."
+echo "NODE_VERSION ${NODE_VERSION}"
+echo "NPM_VERSION ${NPM_VERSION}"
+echo "V8_VERSION ${V8_VERSION}"
+
+docker build \
+	--build-arg NODE_VERSION=${NODE_VERSION} \
+	--build-arg NPM_VERSION=${NPM_VERSION} \
+	--build-arg V8_VERSION=${V8_VERSION} \
+	-t ${IMAGE_NAME} .
