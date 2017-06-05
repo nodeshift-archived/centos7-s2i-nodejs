@@ -32,6 +32,9 @@ npm install -g npm@${NPM_VERSION} -s &>/dev/null
 # Install yarn
 npm install -g yarn -s &>/dev/null
 
+# Fix permissions for the npm update-notifier
+chmod -R 777 /opt/app-root/src/.config
+
 # Delete NPM things that we don't really need (like tests) from node_modules
 find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf 
 
