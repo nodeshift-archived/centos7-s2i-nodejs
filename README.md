@@ -146,57 +146,11 @@ To build your own S2I Node.js builder images from scratch, run:
 make all
 ```
 
-## Repository organization
+## Updating node versions
 
-* **`Dockerfile`**
-
-    CentOS based Dockerfile with 64bit Node.js binaries from nodejs.org.
-    Used to create the `s2i` base images.
-
-* ** `image-streams.json` **
-
-    Use this file to add these builder images to OpenShift's web-based **"Add to Project"** workflow.
-
-* ** `releases.json` **
-
-    A JSON file containing metadata about the releases currently supported.
-
-* **`s2i`**
-
-    This folder contains scripts that are run by [`s2i`](https://github.com/openshift/source-to-image):
-
-    *   **`assemble`**
-
-        Used to install the sources into the location where the application
-        will be run and prepare the application for deployment (eg. installing
-        modules using npm, etc.)
-
-    *   **`run`**
-
-        This script is responsible for running the application, by using the
-        application web server.
-
-    *   **`usage`***
-
-        This script prints the usage of this image.
-
-* **`contrib/`**
-
-    This folder contains shell scripts used to assemble an application image from the builder.
-
-* **`test/`**
-
-    This folder contains the [`s2i`](https://github.com/openshift/source-to-image)
-    test framework with simple Node.js echo server.
-
-    * **`test-app/`**
-
-        A simple Node.js echo server used for testing purposes by the [S2I](https://github.com/openshift/source-to-image) test framework.
-
-    * **`run.sh`**
-
-        This script runs the [S2I](https://github.com/openshift/source-to-image) test framework.
-
-* ** `Makefile` **
-
-    Builds, squashes, tests and deploys this image.
+```
+node-metadata -i 4 5 6 7 8 > releases.json # Write release metadata to disk
+node-image-stream -f releases.json -i bucharestgold/centos7-s2i-nodejs > image-streams.centos7.json # write image stream data
+git add releases.json image-streams.centos7.json
+git commit -a -m "(chore): update node versions"
+```
