@@ -2,8 +2,8 @@
   "kind": "ImageStream",
   "apiVersion": "v1",
   "metadata": {
-    "name": "bucharestgold/centos7-s2i-nodejs",
-    "creationTimestamp": "2017-06-05T21:09:57.213Z"
+    "name": "centos7-s2i-nodejs",
+    "creationTimestamp": "2017-06-07T16:29:15.971Z"
   },
   "spec": {
     "tags": [
