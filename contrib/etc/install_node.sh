@@ -33,6 +33,10 @@ npm install -g npm@${NPM_VERSION} -s &>/dev/null
 npm install -g yarn -s &>/dev/null
 
 # Fix permissions for the npm update-notifier
+if [ ! -d /opt/app-root/src/.config ] ; then
+  mkdir -p /opt/app-root/src/.config
+fi
+
 chmod -R 777 /opt/app-root/src/.config
 
 # Delete NPM things that we don't really need (like tests) from node_modules
