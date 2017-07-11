@@ -15,11 +15,17 @@ official [OpenShift Documentation](https://docs.openshift.org/latest/using_image
 Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs/tags/):
 
 <!-- versions.start -->
+<<<<<<< HEAD
 * **`8.1.2`**: (8.x, latest)
 * **`7.10.0`**: (7.x)
 * **`6.11.0`**: (6.x, Boron)
+=======
+* **`8.1.4`**: (8.x, latest)
+* **`7.10.1`**: (7.x)
+* **`6.11.1`**: (6.x, Boron)
+>>>>>>> master
 * **`5.12.0`**: (5.x)
-* **`4.8.3`**: (4.x, Argon)
+* **`4.8.4`**: (4.x, Argon)
 <!-- versions.end -->
 
 ## Usage
@@ -65,7 +71,7 @@ NODE_ENV    | Node.js runtime mode (default: "production")
 HTTP_PROXY  | use an npm proxy during assembly
 HTTPS_PROXY | use an npm proxy during assembly
 
-One way to define a set of environment variables is to include them as key value pairs 
+One way to define a set of environment variables is to include them as key value pairs
 in a `.s2i/environment` file in your source repository.
 
 Example: `DATABASE_USER=sampleUser`
@@ -144,13 +150,4 @@ To build your own S2I Node.js builder images from scratch, run:
 
 ```
 make all
-```
-
-## Updating node versions
-
-```
-node-metadata -i 4 5 6 7 8 > releases.json # Write release metadata to disk
-node-image-stream -f releases.json -i bucharestgold/centos7-s2i-nodejs > image-streams.centos7.json # write image stream data
-git add releases.json image-streams.centos7.json
-git commit -a -m "(chore): update node versions"
 ```

@@ -1,7 +1,7 @@
 [
   {
-    "version": "v4.8.3",
-    "date": "2017-05-02",
+    "version": "v4.8.4",
+    "date": "2017-07-11",
     "files": [
       "headers",
       "linux-arm64",
@@ -58,8 +58,8 @@
     "lts": false
   },
   {
-    "version": "v6.11.0",
-    "date": "2017-06-06",
+    "version": "v6.11.1",
+    "date": "2017-07-10",
     "files": [
       "aix-ppc64",
       "headers",
@@ -80,7 +80,7 @@
       "win-x86-msi"
     ],
     "npm": "3.10.10",
-    "v8": "5.1.281.102",
+    "v8": "5.1.281.103",
     "uv": "1.11.0",
     "zlib": "1.2.11",
     "openssl": "1.0.2k",
@@ -88,8 +88,8 @@
     "lts": "Boron"
   },
   {
-    "version": "v7.10.0",
-    "date": "2017-05-02",
+    "version": "v7.10.1",
+    "date": "2017-07-11",
     "files": [
       "aix-ppc64",
       "headers",
@@ -118,12 +118,13 @@
     "lts": false
   },
   {
-    "version": "v8.1.2",
-    "date": "2017-06-15",
+    "version": "v8.1.4",
+    "date": "2017-07-11",
     "files": [
       "aix-ppc64",
       "headers",
       "linux-arm64",
+      "linux-armv6l",
       "linux-armv7l",
       "linux-ppc64le",
       "linux-x64",
