@@ -9,18 +9,42 @@ $ export DOCKER_USER=lanceball
 $ export DOCKER_PASS=xxxxxxxxx
 ```
 
+## Updating node versions
+
+You will need command line tools to update `releases.json`, which contains metadata about each
+of the available release versions; and `image-streams.centos7.json`, which provides metadata
+for OpenShift integration of these builder images in the OpenShift user interface.
+
+First install the node tools.
+
+```
+$ npm install -g node-metadata
+$ npm install -g node-image-stream
+```
+
+And a nice json formatter called [`jq`](https://stedolan.github.io/jq/download/).
+
+Then use these tools to update the relevant files. Follow the commands outlined below.
+
+```
+node-metadata -i 4 5 6 7 8 | jq '.' > releases.json # Write release metadata to disk
+node-image-stream -f releases.json -i bucharestgold/centos7-s2i-nodejs > image-streams.centos7.json # write image stream data
+git add releases.json image-streams.centos7.json
+git commit -a -m "(chore): update node versions"
+```
+
 ## New minor or patch-level release
 
 Let's say that Node.js version 7.10.1 is released and we are currently
 publishing 7.10.0. This is a patch level version bump. Note that these
-steps will be the same for a minor release, for example, in 
+steps will be the same for a minor release, for example, in
 this case, if Node.js 7.11.0 is released.
 
 Take the following steps to publish the latest version.
 
 ```sh
 # switch to the branch being published
-git checkout 7.x 
+git checkout 7.x
 
 # update with any changes not present locally
 git pull origin 7.x

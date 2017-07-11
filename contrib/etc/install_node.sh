@@ -12,8 +12,8 @@ for key in \
    C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
    B9AE9905FFD7803F25714661B63B535A4C206CA9 \
    56730D5401028683275BD23C23EFEFE93C4CFFFE \
-; do 
-  gpg -q --keyserver ha.pool.sks-keyservers.net --recv-keys "$key";
+; do
+  gpg -q --keyserver pool.sks-keyservers.net --recv-keys "$key";
   echo "$key:6" | gpg --import-ownertrust
 done
 
@@ -32,8 +32,11 @@ npm install -g npm@${NPM_VERSION} -s &>/dev/null
 # Install yarn
 npm install -g yarn -s &>/dev/null
 
+# Fix permissions for the npm update-notifier
+chmod -R 777 /opt/app-root/src/.config
+
 # Delete NPM things that we don't really need (like tests) from node_modules
-find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf 
+find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf
 
 # Clean up the stuff we downloaded
 rm -rf ~/node-v${NODE_VERSION}-linux-x64.tar.gz ~/SHASUMS256.txt.asc /tmp/node-v${NODE_VERSION} ~/.npm ~/.node-gyp ~/.gnupg /usr/share/man /tmp/* /usr/local/lib/node_modules/npm/man /usr/local/lib/node_modules/npm/doc /usr/local/lib/node_modules/npm/html

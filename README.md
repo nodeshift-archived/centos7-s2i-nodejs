@@ -15,11 +15,11 @@ official [OpenShift Documentation](https://docs.openshift.org/latest/using_image
 Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs/tags/):
 
 <!-- versions.start -->
-* **`8.0.0`**: (8.x, latest)
-* **`7.10.0`**: (7.x)
-* **`6.10.3`**: (6.x, Boron)
+* **`8.1.4`**: (8.x, latest)
+* **`7.10.1`**: (7.x)
+* **`6.11.1`**: (6.x, Boron)
 * **`5.12.0`**: (5.x)
-* **`4.8.3`**: (4.x, Argon)
+* **`4.8.4`**: (4.x, Argon)
 <!-- versions.end -->
 
 ## Usage
@@ -65,7 +65,7 @@ NODE_ENV    | Node.js runtime mode (default: "production")
 HTTP_PROXY  | use an npm proxy during assembly
 HTTPS_PROXY | use an npm proxy during assembly
 
-One way to define a set of environment variables is to include them as key value pairs 
+One way to define a set of environment variables is to include them as key value pairs
 in a `.s2i/environment` file in your source repository.
 
 Example: `DATABASE_USER=sampleUser`
@@ -145,58 +145,3 @@ To build your own S2I Node.js builder images from scratch, run:
 ```
 make all
 ```
-
-## Repository organization
-
-* **`Dockerfile`**
-
-    CentOS based Dockerfile with 64bit Node.js binaries from nodejs.org.
-    Used to create the `s2i` base images.
-
-* ** `image-streams.json` **
-
-    Use this file to add these builder images to OpenShift's web-based **"Add to Project"** workflow.
-
-* ** `releases.json` **
-
-    A JSON file containing metadata about the releases currently supported.
-
-* **`s2i`**
-
-    This folder contains scripts that are run by [`s2i`](https://github.com/openshift/source-to-image):
-
-    *   **`assemble`**
-
-        Used to install the sources into the location where the application
-        will be run and prepare the application for deployment (eg. installing
-        modules using npm, etc.)
-
-    *   **`run`**
-
-        This script is responsible for running the application, by using the
-        application web server.
-
-    *   **`usage`***
-
-        This script prints the usage of this image.
-
-* **`contrib/`**
-
-    This folder contains shell scripts used to assemble an application image from the builder.
-
-* **`test/`**
-
-    This folder contains the [`s2i`](https://github.com/openshift/source-to-image)
-    test framework with simple Node.js echo server.
-
-    * **`test-app/`**
-
-        A simple Node.js echo server used for testing purposes by the [S2I](https://github.com/openshift/source-to-image) test framework.
-
-    * **`run.sh`**
-
-        This script runs the [S2I](https://github.com/openshift/source-to-image) test framework.
-
-* ** `Makefile` **
-
-    Builds, squashes, tests and deploys this image.
