@@ -33,6 +33,9 @@ git add releases.json image-streams.centos7.json
 git commit -a -m "(chore): update node versions"
 ```
 
+Note that these files are kept up to date in the `master` branch, but any changes
+made here should be cherry-picked into the branch being updated.
+
 ## New minor or patch-level release
 
 Let's say that Node.js version 7.10.1 is released and we are currently
