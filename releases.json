@@ -58,8 +58,8 @@
     "lts": false
   },
   {
-    "version": "v6.11.1",
-    "date": "2017-07-10",
+    "version": "v6.11.2",
+    "date": "2017-08-01",
     "files": [
       "aix-ppc64",
       "headers",
@@ -83,7 +83,7 @@
     "v8": "5.1.281.103",
     "uv": "1.11.0",
     "zlib": "1.2.11",
-    "openssl": "1.0.2k",
+    "openssl": "1.0.2l",
     "modules": "48",
     "lts": "Boron"
   },
