@@ -17,7 +17,7 @@ cid_file=`date +%s`$$.cid
 
 # Since we built the candidate image locally, we don't want S2I attempt to pull
 # it from Docker hub
-s2i_args="--force-pull=false "
+s2i_args="--pull-policy always "
 
 # TODO: This should be part of the image metadata
 test_port=8080
@@ -120,7 +120,7 @@ test_connection() {
     status=$?
     if [ $status -eq 0 ]; then
       if [ $response_code -eq 200 ]; then
-        result=0
+	result=0
       fi
       break
     fi
