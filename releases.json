@@ -118,8 +118,8 @@
     "lts": false
   },
   {
-    "version": "v8.3.0",
-    "date": "2017-08-08",
+    "version": "v8.4.0",
+    "date": "2017-08-15",
     "files": [
       "aix-ppc64",
       "headers",
