@@ -17,7 +17,7 @@ cid_file=`date +%s`$$.cid
 
 # Since we built the candidate image locally, we don't want S2I attempt to pull
 # it from Docker hub
-s2i_args="--pull-policy always "
+s2i_args="--pull-policy never "
 
 # TODO: This should be part of the image metadata
 test_port=8080
