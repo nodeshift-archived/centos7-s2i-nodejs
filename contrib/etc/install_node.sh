@@ -28,7 +28,7 @@ grep " node-v${NODE_VERSION}-linux-x64.tar.gz\$" SHASUMS256.txt.asc | sha256sum 
 
 # Unpack and install node/npm
 tar -zxf node-v${NODE_VERSION}-linux-x64.tar.gz -C /usr/local --strip-components=1
-npm install -g npm@${NPM_VERSION} -s &>/dev/null
+# npm install -g npm@${NPM_VERSION} -s &>/dev/null
 
 # Install yarn
 npm install -g yarn -s &>/dev/null
