@@ -1,7 +1,7 @@
 [
   {
-    "version": "v4.8.4",
-    "date": "2017-07-11",
+    "version": "v4.8.5",
+    "date": "2017-10-24",
     "files": [
       "headers",
       "linux-arm64",
@@ -15,10 +15,14 @@
       "src",
       "sunos-x64",
       "sunos-x86",
+      "win-x64-7z",
       "win-x64-exe",
       "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
       "win-x86-exe",
-      "win-x86-msi"
+      "win-x86-msi",
+      "win-x86-zip"
     ],
     "npm": "2.15.11",
     "v8": "4.5.103.47",
@@ -58,8 +62,8 @@
     "lts": false
   },
   {
-    "version": "v6.11.4",
-    "date": "2017-10-03",
+    "version": "v6.11.5",
+    "date": "2017-10-24",
     "files": [
       "aix-ppc64",
       "headers",
@@ -74,10 +78,14 @@
       "src",
       "sunos-x64",
       "sunos-x86",
+      "win-x64-7z",
       "win-x64-exe",
       "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
       "win-x86-exe",
-      "win-x86-msi"
+      "win-x86-msi",
+      "win-x86-zip"
     ],
     "npm": "3.10.10",
     "v8": "5.1.281.108",
@@ -104,10 +112,14 @@
       "src",
       "sunos-x64",
       "sunos-x86",
+      "win-x64-7z",
       "win-x64-exe",
       "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
       "win-x86-exe",
-      "win-x86-msi"
+      "win-x86-msi",
+      "win-x86-zip"
     ],
     "npm": "4.2.0",
     "v8": "5.5.372.43",
@@ -118,13 +130,12 @@
     "lts": false
   },
   {
-    "version": "v8.7.0",
-    "date": "2017-10-11",
+    "version": "v8.9.0",
+    "date": "2017-10-31",
     "files": [
       "aix-ppc64",
       "headers",
       "linux-arm64",
-      "linux-armv6l",
       "linux-armv7l",
       "linux-ppc64le",
       "linux-x64",
@@ -134,17 +145,21 @@
       "src",
       "sunos-x64",
       "sunos-x86",
+      "win-x64-7z",
       "win-x64-exe",
       "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
       "win-x86-exe",
-      "win-x86-msi"
+      "win-x86-msi",
+      "win-x86-zip"
     ],
-    "npm": "5.4.2",
-    "v8": "6.1.534.42",
+    "npm": "5.5.1",
+    "v8": "6.1.534.46",
     "uv": "1.15.0",
     "zlib": "1.2.11",
     "openssl": "1.0.2l",
     "modules": "57",
-    "lts": false
+    "lts": "Carbon"
   }
 ]
