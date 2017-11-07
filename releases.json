@@ -1,7 +1,7 @@
 [
   {
-    "version": "v4.8.4",
-    "date": "2017-07-11",
+    "version": "v4.8.6",
+    "date": "2017-11-06",
     "files": [
       "headers",
       "linux-arm64",
@@ -21,10 +21,10 @@
       "win-x86-msi"
     ],
     "npm": "2.15.11",
-    "v8": "4.5.103.47",
+    "v8": "4.5.103.53",
     "uv": "1.9.1",
     "zlib": "1.2.11",
-    "openssl": "1.0.2k",
+    "openssl": "1.0.2m",
     "modules": "46",
     "lts": "Argon"
   },
@@ -58,8 +58,8 @@
     "lts": false
   },
   {
-    "version": "v6.11.4",
-    "date": "2017-10-03",
+    "version": "v6.12.0",
+    "date": "2017-11-06",
     "files": [
       "aix-ppc64",
       "headers",
@@ -81,9 +81,9 @@
     ],
     "npm": "3.10.10",
     "v8": "5.1.281.108",
-    "uv": "1.11.0",
+    "uv": "1.15.0",
     "zlib": "1.2.11",
-    "openssl": "1.0.2l",
+    "openssl": "1.0.2m",
     "modules": "48",
     "lts": "Boron"
   },
@@ -145,6 +145,40 @@
     "zlib": "1.2.11",
     "openssl": "1.0.2l",
     "modules": "57",
+    "lts": "Carbon"
+  },
+  {
+    "version": "v9.1.0",
+    "date": "2017-11-07",
+    "files": [
+      "aix-ppc64",
+      "headers",
+      "linux-arm64",
+      "linux-armv6l",
+      "linux-armv7l",
+      "linux-ppc64le",
+      "linux-x64",
+      "linux-x86",
+      "osx-x64-pkg",
+      "osx-x64-tar",
+      "src",
+      "sunos-x64",
+      "sunos-x86",
+      "win-x64-7z",
+      "win-x64-exe",
+      "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
+      "win-x86-exe",
+      "win-x86-msi",
+      "win-x86-zip"
+    ],
+    "npm": "5.5.1",
+    "v8": "6.2.414.32",
+    "uv": "1.15.0",
+    "zlib": "1.2.11",
+    "openssl": "1.0.2m",
+    "modules": "59",
     "lts": false
   }
 ]
