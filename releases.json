@@ -1,7 +1,7 @@
 [
   {
-    "version": "v4.8.5",
-    "date": "2017-10-24",
+    "version": "v4.8.6",
+    "date": "2017-11-06",
     "files": [
       "headers",
       "linux-arm64",
@@ -25,10 +25,10 @@
       "win-x86-zip"
     ],
     "npm": "2.15.11",
-    "v8": "4.5.103.47",
+    "v8": "4.5.103.53",
     "uv": "1.9.1",
     "zlib": "1.2.11",
-    "openssl": "1.0.2k",
+    "openssl": "1.0.2m",
     "modules": "46",
     "lts": "Argon"
   },
@@ -62,8 +62,8 @@
     "lts": false
   },
   {
-    "version": "v6.11.5",
-    "date": "2017-10-24",
+    "version": "v6.12.0",
+    "date": "2017-11-06",
     "files": [
       "aix-ppc64",
       "headers",
@@ -89,9 +89,9 @@
     ],
     "npm": "3.10.10",
     "v8": "5.1.281.108",
-    "uv": "1.11.0",
+    "uv": "1.15.0",
     "zlib": "1.2.11",
-    "openssl": "1.0.2l",
+    "openssl": "1.0.2m",
     "modules": "48",
     "lts": "Boron"
   },
@@ -136,6 +136,7 @@
       "aix-ppc64",
       "headers",
       "linux-arm64",
+      "linux-armv6l",
       "linux-armv7l",
       "linux-ppc64le",
       "linux-x64",
@@ -163,12 +164,13 @@
     "lts": "Carbon"
   },
   {
-    "version": "v9.0.0",
-    "date": "2017-10-31",
+    "version": "v9.1.0",
+    "date": "2017-11-07",
     "files": [
       "aix-ppc64",
       "headers",
       "linux-arm64",
+      "linux-armv6l",
       "linux-armv7l",
       "linux-ppc64le",
       "linux-x64",
@@ -191,7 +193,7 @@
     "v8": "6.2.414.32",
     "uv": "1.15.0",
     "zlib": "1.2.11",
-    "openssl": "1.0.2l",
+    "openssl": "1.0.2m",
     "modules": "59",
     "lts": false
   }
