@@ -34,8 +34,8 @@ container_ip() {
   docker inspect --format="{{ .NetworkSettings.IPAddress }}" $(cat $cid_file)
 }
 
-run_onbuild_build() {
-  echo "Running docker build -t foonodejs ."
+container_logs() {
+  docker logs $(cat $cid_file)
 }
 
 run_s2i_build() {
@@ -57,7 +57,7 @@ prepare() {
 
 run_test_application() {
   echo "Starting test application ${APP_IMAGE}..."
-  docker run --rm --cidfile=${cid_file} -p ${test_port}:${test_port} ${APP_IMAGE}
+  docker run --rm --cidfile=${cid_file} -p ${test_port}:${test_port} $1 ${APP_IMAGE}
 }
 
 cleanup() {
@@ -65,9 +65,6 @@ cleanup() {
     if container_exists; then
       docker stop $(cat $cid_file)
     fi
-  fi
-  if image_exists ${APP_IMAGE}; then
-    docker rmi -f ${APP_IMAGE}
   fi
   cids=`ls -1 *.cid 2>/dev/null | wc -l`
   if [ $cids != 0 ]
@@ -152,44 +149,6 @@ test_node_version() {
   fi
 }
 
-# Sets and Gets the NODE_ENV environment variable from the container.
-get_set_node_env_from_container() {
-  local node_env="$1"
-
-  echo $(docker run --rm --env NODE_ENV=$node_env $BUILDER /bin/bash -c 'echo "$NODE_ENV"')
-}
-
-# Gets the NODE_ENV environment variable from the container.
-get_default_node_env_from_container() {
-  echo $(docker run --rm $BUILDER /bin/bash -c 'echo "$NODE_ENV"')
-}
-
-test_node_env_and_environment_variables() {
-  local default_node_env="production"
-  local node_env_prod="production"
-  local node_env_dev="development"
-  echo 'Validating default NODE_ENV, verifying ability to configure using Env Vars...'
-
-  result=0
-
-  if [ "$default_node_env" != $(get_default_node_env_from_container) ]; then
-    echo "ERROR default NODE_ENV should be '$default_node_env'"
-    result=1
-  fi
-
-  if [ "$node_env_prod" != $(get_set_node_env_from_container "$node_env_prod") ]; then
-    echo "ERROR: NODE_ENV was unsuccessfully set to '$node_env_prod' mode"
-    result=1
-  fi
-
-  if [ "$node_env_dev" != $(get_set_node_env_from_container "$node_env_dev") ]; then
-    echo "ERROR: NODE_ENV unsuccessfully set to '$node_env_dev' mode"
-    result=1
-  fi
-
-  return $result
-}
-
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
 prepare
@@ -219,8 +178,30 @@ check_result $?
 test_connection
 check_result $?
 
-test_node_env_and_environment_variables
+echo "Testing DEV_MODE=false (default)"
+logs=$(container_logs)
+echo ${logs} | grep -q DEV_MODE=false
 check_result $?
+echo ${logs} | grep -q NODE_ENV=production
+check_result $?
+echo ${logs} | grep -q DEBUG_PORT=5858
+check_result $?
+cleanup
+
+run_test_application "-e DEV_MODE=true" &
+wait_for_cid
+echo "Testing DEV_MODE=true"
+logs=$(container_logs)
+echo ${logs} | grep -q DEV_MODE=true
+check_result $?
+echo ${logs} | grep -q NODE_ENV=development
+check_result $?
+echo ${logs} | grep -q DEBUG_PORT=5858
+check_result $?
+cleanup
+
+if image_exists ${APP_IMAGE}; then
+  docker rmi -f ${APP_IMAGE}
+fi
 
 echo "Success!"
-cleanup
