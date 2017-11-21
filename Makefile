@@ -11,20 +11,18 @@ TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
 .PHONY: all
 all: build squash test
 
-.PHONY: build
-build:
+build: Dockerfile s2i contrib
 	docker build \
 	--build-arg NODE_VERSION=$(NODE_VERSION) \
 	--build-arg NPM_VERSION=$(NPM_VERSION) \
-	--build-arg V8_VERSION=$(V8_VERSION) \
 	-t $(TARGET) .
 
 .PHONY: squash
-squash: 
+squash:
 	docker-squash -f $(FROM) $(TARGET) -t $(TARGET)
 
 .PHONY: test
-test: build squash
+test: build
 	 BUILDER=$(TARGET) NODE_VERSION=$(NODE_VERSION) ./test/run.sh
 
 .PHONY: clean
