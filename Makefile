@@ -19,7 +19,8 @@ build: Dockerfile s2i contrib
 
 .PHONY: squash
 squash:
-	docker-squash -f $(FROM) $(TARGET) -t $(TARGET)
+	if [ -z $(SKIP_SQUASH) ] ; then docker-squash -f $(FROM) $(TARGET) -t $(TARGET); fi
+
 
 .PHONY: test
 test: build
