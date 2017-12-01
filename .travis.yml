@@ -1,4 +1,6 @@
 dist: trusty
+python:
+  - 3.6
 before_script:
   - sudo mount --make-shared /
   - sudo service docker stop
