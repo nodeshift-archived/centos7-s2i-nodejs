@@ -4,7 +4,6 @@ before_script:
   - sudo service docker stop
   - sudo sed -i 's/DOCKER_OPTS=\"/DOCKER_OPTS=\"--insecure-registry 172.30.0.0\/16 /' /etc/default/docker
   - sudo service docker start
-  - pip install docker-squash
   - wget https://github.com/openshift/source-to-image/releases/download/v1.1.7/source-to-image-v1.1.7-226afa1-linux-amd64.tar.gz
   - tar xvzOf source-to-image-v1.1.7-226afa1-linux-amd64.tar.gz > s2i.bin
   - sudo mv s2i.bin /usr/bin/s2i
@@ -15,7 +14,7 @@ before_script:
   - sudo chmod 755 /usr/bin/oc
 
 script:
-  - make all
+  - SKIP_SQUASH=true make all
 
 notifications:
   irc: "chat.freenode.net#brass-monkey"
