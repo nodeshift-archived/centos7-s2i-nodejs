@@ -1,11 +1,12 @@
 [
   {
-    "version": "v8.9.1",
-    "date": "2017-11-07",
+    "version": "v8.9.3",
+    "date": "2017-12-07",
     "files": [
       "aix-ppc64",
       "headers",
       "linux-arm64",
+      "linux-armv6l",
       "linux-armv7l",
       "linux-ppc64le",
       "linux-x64",
@@ -25,10 +26,10 @@
       "win-x86-zip"
     ],
     "npm": "5.5.1",
-    "v8": "6.1.534.47",
+    "v8": "6.1.534.48",
     "uv": "1.15.0",
     "zlib": "1.2.11",
-    "openssl": "1.0.2m",
+    "openssl": "1.0.2n",
     "modules": "57",
     "lts": "Carbon"
   }
