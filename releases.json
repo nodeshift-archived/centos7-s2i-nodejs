@@ -1,7 +1,7 @@
 [
   {
-    "version": "v9.2.0",
-    "date": "2017-11-14",
+    "version": "v9.2.1",
+    "date": "2017-12-08",
     "files": [
       "aix-ppc64",
       "headers",
@@ -29,7 +29,7 @@
     "v8": "6.2.414.44",
     "uv": "1.16.1",
     "zlib": "1.2.11",
-    "openssl": "1.0.2m",
+    "openssl": "1.0.2n",
     "modules": "59",
     "lts": false
   }
