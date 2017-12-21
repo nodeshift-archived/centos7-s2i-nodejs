@@ -97,35 +97,29 @@ s2i build https://github.com/bucharest-gold/s2i-nodejs bucharestgold/centos7-s2i
 
 ## Installation
 
-There are several ways to make this base image and the full list of tagged Node.js releases available to users during OpenShift's web-based "Add to Project" workflow.
+If you would like for the list of Node.js releases from this builder image to be available in the Catalog
+during OpenShift's web-based "Add to Project" workflow, follow these instructions. You will need administrative
+privledges.
 
-### For OpenShift Online Next Gen Developer Preview
-Those without admin privileges can install the latest Node.js releases within their project context with:
-
-```
-oc create -f https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/image-streams.centos7.json
-```
-
-To ensure that each of the latest Node.js release tags are available and displayed correctly in the web UI, try upgrading / reinstalling the image stream:
+First, you will need to login as `system:admin` to to the `openshift` namespace for your OpenShift instance,
+whether that is Minishift or Openshift online.
 
 ```
-oc delete is/centos7-s2i-nodejs ; oc create -f https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/image-streams.centos7.json
+$ oc login -u system:admin -n openshift --config=~/.kube/config
 ```
 
-If you've (automatically) imported this image using the [`oc new-app` example command](#usage), then you may need to clear the auto-imported image stream reference and re-install it.
+To replace [the default SCL-packaged `openshift/nodejs` image](https://hub.docker.com/r/openshift/nodejs-010-centos7/),
+and again you will need to be logged in as `system:admin`, you should first run the following command to remove
+the existing Node.js builder images from the cluster.
 
-### For Administrators
+```
+oc delete is/nodejs -n openshift
+```
 
-Administrators can make these Node.js releases available globally (visible in all projects, by all users) by adding them to the `openshift` namespace:
+Next import the `ImageStream` by issuing the following command.
 
 ```
 oc create -n openshift -f https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/image-streams.centos7.json
-```
-
-To replace [the default SCL-packaged `openshift/nodejs` image](https://hub.docker.com/r/openshift/nodejs-010-centos7/) (admin access required), run:
-
-```
-oc delete is/nodejs -n openshift ; oc create -n openshift -f https://raw.githubusercontent.com/bucharest-gold/origin-s2i-nodejs/master/centos7-s2i-nodejs.json
 ```
 
 ## Building your own Builder images
