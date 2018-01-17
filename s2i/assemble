@@ -2,6 +2,8 @@
 
 set -e
 
+chmod 775 -R /tmp/src/.
+
 echo "---> Installing application source"
 cp -Rf /tmp/src/. ./
 
