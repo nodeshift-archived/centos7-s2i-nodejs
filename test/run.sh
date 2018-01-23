@@ -149,6 +149,18 @@ test_node_version() {
   fi
 }
 
+test_directory_permissions() {
+  local run_cmd="echo 'hello world' > public/index.html && cat public/index.html"
+  local expected="hello world"
+
+  echo "Checking directory writability ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
 prepare
@@ -171,6 +183,9 @@ run_test_application &
 
 # Wait for the container to write it's CID file
 wait_for_cid
+
+test_directory_permissions
+check_result $?
 
 test_node_version
 check_result $?
