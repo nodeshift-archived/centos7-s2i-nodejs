@@ -5,7 +5,7 @@ set -e
 chmod 775 -R /tmp/src/.
 
 echo "---> Installing application source"
-cp -Rf /tmp/src/. ./
+cp -Rfp /tmp/src/. ./
 
 if [ ! -z $HTTP_PROXY ]; then
 	echo "---> Setting npm http proxy to $HTTP_PROXY"
