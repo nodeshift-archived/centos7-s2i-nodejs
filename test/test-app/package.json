@@ -5,20 +5,16 @@
   "author": "Helio Frota",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint test/*.js index.js",
     "dev": "nodemon --ignore node_modules/ server.js",
+    "postinstall": "tsc greeting.ts",
     "start": "node server.js"
   },
   "devDependencies": {
-    "eslint": "*",
-    "eslint-config-semistandard": "*",
-    "eslint-config-standard": "*",
-    "eslint-plugin-promise": "*",
-    "eslint-plugin-react": "*",
-    "eslint-plugin-standard": "*",
-    "nodemon": "*"
+    "nodemon": "*",
+    "typescript": "~2.7.1"
   },
   "dependencies": {
+    "@types/node": "~9.4.0",
     "roi": "*"
   }
 }
