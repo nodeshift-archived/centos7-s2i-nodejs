@@ -161,6 +161,18 @@ test_directory_permissions() {
   fi
 }
 
+test_post_install() {
+  local run_cmd="ls greeting.js"
+  local expected="greeting.js"
+
+  echo "Checking post install ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
 prepare
@@ -185,6 +197,9 @@ run_test_application &
 wait_for_cid
 
 test_directory_permissions
+check_result $?
+
+test_post_install
 check_result $?
 
 test_node_version
