@@ -39,13 +39,13 @@ container_logs() {
 }
 
 run_s2i_build() {
-  echo "Running s2i build ${s2i_args} file://${test_dir}/test-app ${BUILDER} ${APP_IMAGE}"
-  s2i build ${s2i_args} file://${test_dir}/test-app ${BUILDER} ${APP_IMAGE}
+  echo "Running s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE}"
+  s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE}
 }
 
 run_s2i_build_incremental() {
-  echo "Running s2i build ${s2i_args} file://${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true --pull-policy=never"
-  s2i build ${s2i_args} file://${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true
+  echo "Running s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true"
+  s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true
 }
 
 prepare() {
@@ -173,6 +173,30 @@ test_post_install() {
   fi
 }
 
+test_development_dependencies() {
+  local run_cmd="ls -d node_modules/tape"
+  local expected="tape"
+
+  echo "Checking development dependencies ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
+test_no_development_dependencies() {
+  local run_cmd="if [ -d node_modules/nodemon ] ; then echo 'exists' ; else echo 'not exists' ; fi"
+  local expected="not exists"
+
+  echo "Checking development dependencies not installed ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
 prepare
@@ -216,20 +240,30 @@ echo ${logs} | grep -q NODE_ENV=production
 check_result $?
 echo ${logs} | grep -q DEBUG_PORT=5858
 check_result $?
+test_no_development_dependencies
+check_result $?
 cleanup
 
 run_test_application "-e DEV_MODE=true" &
 wait_for_cid
+echo "$(cat ${cid_file}) running"
 echo "Testing DEV_MODE=true"
 logs=$(container_logs)
 echo ${logs} | grep -q DEV_MODE=true
 check_result $?
+echo "Testing NODE_ENV=development"
 echo ${logs} | grep -q NODE_ENV=development
 check_result $?
+echo "Testing DEBUG_PORT=5858"
 echo ${logs} | grep -q DEBUG_PORT=5858
 check_result $?
-cleanup
+# # Ensure that we install dev dependencies in dev mode
+sleep 10
+echo "Testing dev dependencies"
+test_development_dependencies
+check_result $?
 
+cleanup
 if image_exists ${APP_IMAGE}; then
   docker rmi -f ${APP_IMAGE}
 fi
