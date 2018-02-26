@@ -26,6 +26,8 @@ fi
 run_node() {
   echo -e "Environment: \n\tDEV_MODE=${DEV_MODE}\n\tNODE_ENV=${NODE_ENV}\n\tDEBUG_PORT=${DEBUG_PORT}"
   if [ "$DEV_MODE" == true ]; then
+    echo "Installing dev dependencies..."
+    npm install -s
     echo "Launching via nodemon..."
     exec nodemon --inspect="$DEBUG_PORT"
   else

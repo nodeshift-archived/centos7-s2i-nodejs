@@ -1,5 +1,5 @@
 #!/bin/bash
 
-if [ "$(ls /opt/app-root/src/node_modules 2>/dev/null)" ]; then
-  tar -C /opt/app-root/src -cf - node_modules
+if [ "$(ls ${HOME}/node_modules 2>/dev/null)" ]; then
+  tar -C ${HOME} -cf - node_modules
 fi
