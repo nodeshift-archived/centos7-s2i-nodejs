@@ -7,14 +7,14 @@
   "scripts": {
     "dev": "nodemon --ignore node_modules/ server.js",
     "postinstall": "tsc greeting.ts",
-    "start": "node server.js"
+    "start": "echo 'starting node app' && node server.js"
   },
   "devDependencies": {
-    "nodemon": "*",
-    "typescript": "~2.7.1"
+    "tape": "*"
   },
   "dependencies": {
     "@types/node": "~9.4.0",
+    "typescript": "~2.7.1",
     "roi": "*"
   }
 }

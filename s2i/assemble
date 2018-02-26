@@ -35,15 +35,24 @@ fi
 
 if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
   echo "---> Restoring build artifacts..."
-  mv /tmp/artifacts/* ./
-fi
-
-echo "---> Building your Node application from source"
-
-if [ ! -z "$YARN_ENABLED" ]; then
-	echo "---> Using 'yarn install' with YARN_ARGS"
-	yarn install $YARN_ARGS
+  mv /tmp/artifacts/node_modules ./
+	# Since we aren't explicitly running install, we need to
+	# execute any postinstall scripts explicitly, e.g.
+	# to compile typescript
+	exec npm run postinstall
 else
-	echo "---> Using 'npm install'"
-	npm install -s
+	echo "---> Building your Node application from source"
+	if [ ! -z "$YARN_ENABLED" ]; then
+		echo "---> Using 'yarn install' with YARN_ARGS"
+		yarn install $YARN_ARGS
+	else
+		echo "---> Installing dependencies"
+		if [ "$DEV_MODE" == true ]; then
+			echo "---> Using 'npm install'"
+			exec npm install
+		else
+			echo "---> Using 'npm install --only=production'"
+			exec npm install --only=production
+		fi
+	fi
 fi
