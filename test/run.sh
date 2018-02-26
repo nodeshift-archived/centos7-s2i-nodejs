@@ -40,12 +40,12 @@ container_logs() {
 
 run_s2i_build() {
   echo "Running s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE}"
-  s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE}
+  s2i build ${s2i_args} --exclude "(^|/)node_modules(/|$)" ${test_dir}/test-app ${BUILDER} ${APP_IMAGE}
 }
 
 run_s2i_build_incremental() {
   echo "Running s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true"
-  s2i build ${s2i_args} ${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true
+  s2i build ${s2i_args} --exclude "(^|/)node_modules(/|$)" ${test_dir}/test-app ${BUILDER} ${APP_IMAGE} --incremental=true
 }
 
 prepare() {
@@ -197,6 +197,18 @@ test_no_development_dependencies() {
   fi
 }
 
+test_symlinks() {
+  local run_cmd="test -h node_modules/.bin/tape; echo $?"
+  local expected="0"
+
+  echo "Checking symlinks ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
 prepare
@@ -261,6 +273,9 @@ check_result $?
 sleep 10
 echo "Testing dev dependencies"
 test_development_dependencies
+check_result $?
+echo "Testing symlinks"
+test_symlinks
 check_result $?
 
 cleanup
