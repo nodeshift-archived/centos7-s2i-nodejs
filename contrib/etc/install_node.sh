@@ -5,10 +5,13 @@ yum install -y --setopt=tsflags=nodocs openssl
 yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
 yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
 
-# Install nodemon and yarn
-npm install -g nodemon
-ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon
+# Install yarn
 npm install -g yarn -s &>/dev/null
+
+# Make sure npx is available
+if [ ! -h /usr/bin/npx ] ; then
+  ln -s /usr/lib/node_modules/npm/bin/npx-cli.js /usr/bin/npx
+fi
 
 # Make /opt/app-root owned by user 1001
 chown -R 1001:0 /opt/app-root
