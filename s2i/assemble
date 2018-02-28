@@ -56,3 +56,5 @@ else
 		fi
 	fi
 fi
+# Ensure we can write to all directories under app-root
+find . -type d -exec chmod 777 {} \;
