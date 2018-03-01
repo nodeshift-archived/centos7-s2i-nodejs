@@ -2,6 +2,8 @@
 
 set -e
 
+source /usr/libexec/s2i/env
+
 chmod 775 -R /tmp/src/.
 
 echo "---> Installing application source"
@@ -49,12 +51,14 @@ else
 		echo "---> Installing dependencies"
 		if [ "$DEV_MODE" == true ]; then
 			echo "---> Using 'npm install'"
-			exec npm install
+			exec npm install -s
 		else
-			echo "---> Using 'npm install --only=production'"
-			exec npm install --only=production
+			echo "---> Using 'npm install -s --only=production'"
+			npm install -s --only=production
+			echo "---> Cleaning up npm cache"
+			rm -rf .npm
+			echo "---> Setting directory write permissions"
+			exec chmod -R g+w .
 		fi
 	fi
 fi
-# Ensure we can write to all directories under app-root
-find . -type d -exec chmod 777 {} \;
