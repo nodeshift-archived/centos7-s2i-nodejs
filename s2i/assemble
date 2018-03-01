@@ -58,7 +58,7 @@ else
 			echo "---> Cleaning up npm cache"
 			rm -rf .npm
 			echo "---> Setting directory write permissions"
-			exec chmod -R g+w .
+			exec chmod -R g+rw .
 		fi
 	fi
 fi
