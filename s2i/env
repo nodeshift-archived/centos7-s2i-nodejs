@@ -1,0 +1,16 @@
+# If NODE_ENV is not set by the user, then default to production.
+# User may also set DEV_MODE=true
+if [ -z "$NODE_ENV" ]; then
+  if [ "$DEV_MODE" == true ]; then
+    export NODE_ENV=development
+  else
+    export NODE_ENV=production
+  fi
+fi
+
+# Set the environment for this build configuration to production by default.
+if [ "$NODE_ENV" == "production" ]; then
+  export DEV_MODE=false
+else
+  export DEV_MODE=true
+fi

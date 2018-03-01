@@ -2,29 +2,19 @@
 
 set -e
 
-#Set the debug port to 5858 by default.
-if [ -z "$DEBUG_PORT" ]; then
-  export DEBUG_PORT=5858
-fi
+source /usr/libexec/s2i/env
 
-# Set the environment to development by default.
-if [ -z "$DEV_MODE" ]; then
+# Set the environment for this build configuration to production by default.
+if [ "$NODE_ENV" == "production" ]; then
   export DEV_MODE=false
-fi
-
-# If NODE_ENV is not set by the user, then NODE_ENV is determined by whether
-# the container is run in development mode.
-if [ -z "$NODE_ENV" ]; then
-  if [ "$DEV_MODE" == true ]; then
-    export NODE_ENV=development
-  else
-    export NODE_ENV=production
-  fi
+else
+  export DEV_MODE=true
 fi
 
 # Runs the nodejs application server.
 run_node() {
   echo -e "Environment: \n\tDEV_MODE=${DEV_MODE}\n\tNODE_ENV=${NODE_ENV}\n\tDEBUG_PORT=${DEBUG_PORT}"
+  echo -e "Running as user $(id)"
   if [ "$DEV_MODE" == true ]; then
     echo "Installing dev dependencies..."
     npm install -s
