@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "nodemon --ignore node_modules/ server.js",
     "postinstall": "tsc greeting.ts && node-gyp -C addon configure build",
-    "start": "echo 'starting node app' && node server.js",
-    "compile": "node-gyp -C addon configure build"
+    "start": "echo 'starting node app' && node server.js"
   },
   "devDependencies": {
     "tape": "*"
