@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --ignore node_modules/ server.js",
-    "postinstall": "tsc greeting.ts",
+    "postinstall": "tsc greeting.ts && node-gyp -C addon configure build",
     "start": "echo 'starting node app' && node server.js"
   },
   "devDependencies": {
@@ -15,6 +15,8 @@
   "dependencies": {
     "@types/node": "~9.4.0",
     "typescript": "~2.7.1",
-    "roi": "*"
-  }
+    "roi": "*",
+    "node-gyp": "*"
+  },
+  "gypfile": true
 }
