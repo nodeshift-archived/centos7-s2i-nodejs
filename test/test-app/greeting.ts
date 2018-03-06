@@ -1,3 +1,4 @@
+const addon = require('./addon/build/Release/addon');
 function greeting() {
-  return `Hello at ${Date.now()}!`
+  return `${addon.hello()} ${Date.now()}!`
 }
