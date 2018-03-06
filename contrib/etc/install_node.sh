@@ -2,8 +2,8 @@
 
 set -ex
 yum install -y --setopt=tsflags=nodocs openssl
-yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
-yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
+yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}-cr/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
+yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}-cr/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
 
 # Install yarn
 npm install -g yarn -s &>/dev/null
