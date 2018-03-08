@@ -15,7 +15,7 @@ official [OpenShift Documentation](https://docs.openshift.org/latest/using_image
 Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs/tags/):
 
 <!-- versions.start -->
-* **`9.6.1`**: (9.x, latest)
+* **`9.7.0`**: (9.x, latest)
 * **`8.10.0`**: (8.x, Carbon)
 * **`7.10.1`**: (7.x)
 * **`6.11.4`**: (6.x, Boron)
