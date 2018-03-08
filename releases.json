@@ -1,7 +1,7 @@
 [
   {
-    "version": "v9.5.0",
-    "date": "2018-01-10",
+    "version": "v9.6.0",
+    "date": "2018-03-08",
     "files": [
       "aix-ppc64",
       "headers",
