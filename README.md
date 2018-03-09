@@ -86,33 +86,6 @@ This example will produce a new docker image named `webapp`:
 s2i build https://github.com/bucharest-gold/s2i-nodejs bucharestgold/centos7-s2i-nodejs:current webapp
 ```
 
-## Installation
-
-If you would like for the list of Node.js releases from this builder image to be available in the Catalog
-during OpenShift's web-based "Add to Project" workflow, follow these instructions. You will need administrative
-privledges.
-
-First, you will need to login as `system:admin` to to the `openshift` namespace for your OpenShift instance,
-whether that is Minishift or Openshift online.
-
-```
-$ oc login -u system:admin -n openshift --config=~/.kube/config
-```
-
-To replace [the default SCL-packaged `openshift/nodejs` image](https://hub.docker.com/r/openshift/nodejs-010-centos7/),
-and again you will need to be logged in as `system:admin`, you should first run the following command to remove
-the existing Node.js builder images from the cluster.
-
-```
-oc delete is/nodejs -n openshift
-```
-
-Next import the `ImageStream` by issuing the following command.
-
-```
-oc create -n openshift -f https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/image-streams.centos7.json
-```
-
 ## Building your own Builder images
 
 Clone a copy of this repo to fetch the build sources:
