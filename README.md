@@ -12,7 +12,7 @@ official [OpenShift Documentation](https://docs.openshift.org/latest/using_image
 
 ## Versions
 
-Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs):
+Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs).
 
 ## Usage
 
