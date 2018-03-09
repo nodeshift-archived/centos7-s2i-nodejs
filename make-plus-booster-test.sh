@@ -12,7 +12,7 @@ docker build -t $image_name --build-arg NODE_VERSION=$node_version --build-arg N
 
 pushd ../nodejs-rest-http/
 
-s2i build . ${image_name}:latest $booster_image_name
+s2i build . ${image_name}:latest $booster_image_name --pull-policy never
 
 docker run -p 8080:8080 $booster_image_name
 docker run -e DEV_MODE=true -p 8080:8080 $booster_image_name
