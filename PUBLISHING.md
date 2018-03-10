@@ -52,8 +52,8 @@ git checkout 7.x
 # update with any changes not present locally
 git pull origin 7.x
 
-# Change the version numbers in the readme and Makefile.
-# The Makefile has version numbers for Node, NPM and V8.
+# Change the version numbers in the readme and versions.mk.
+# The versions.mk has version numbers for Node, NPM and V8.
 # You'll need to update all of those. In this case, the
 # change should look like this:
 # NODE_VERSION=7.10.0
@@ -62,7 +62,7 @@ git pull origin 7.x
 # To obtain the version numbers for NPM and V8, you can
 # check out Node's releases metadata:
 # https://nodejs.org/dist/index.json
-vi README.md Makefile
+vi README.md versions.mk
 
 # Make sure nothing broke
 make all
