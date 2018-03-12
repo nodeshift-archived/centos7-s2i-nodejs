@@ -3,12 +3,11 @@
 [![Build Status](https://travis-ci.org/bucharest-gold/centos7-s2i-nodejs.svg?branch=master)](https://travis-ci.org/bucharest-gold/centos7-s2i-nodejs)
 [![](https://images.microbadger.com/badges/image/bucharestgold/centos7-s2i-nodejs.svg)](https://microbadger.com/images/bucharestgold/centos7-s2i-nodejs "Get your own image badge on microbadger.com")
 
-This repository contains sources for an [s2i](https://github.com/openshift/source-to-image) builder image, based on CentOS7 and Node.js releases from nodejs.org.
+This repository contains sources for an [s2i](https://github.com/openshift/source-to-image) builder image, based on CentOS7 and Node.js RPM releases from https://github.com/bucharest-gold/node-rpm. The RPMs and this builder image are the upstream
+sources for the [Red Hat OpenShift Application Runtimes](https://developers.redhat.com/products/rhoar/overview/) Node.js
+distribution.
 
 [![docker hub stats](http://dockeri.co/image/bucharestgold/centos7-s2i-nodejs)](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs/)
-
-For more information about using these images with OpenShift, please see the
-official [OpenShift Documentation](https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html).
 
 ## Versions
 
@@ -26,34 +25,50 @@ Version  | Tag
 ## Usage
 
 Using this image with OpenShift `oc` command line tool, or with `s2i` directly, will
-assemble your application source with any required dependencies to create a new image.
-This resulting image contains your Node.js application and all required dependencies,
-and can be run either by OpenShift Origin or by Docker.
+assemble your application source with its required dependencies, creating a new
+container image. This image contains your Node.js application and all required dependencies,
+and can be run either on OpenShift or directly on Docker.
 
-The [`oc` command-line tool](https://github.com/openshift/origin/releases) can be used to start a build, layering your desired nodejs `REPO_URL` sources into a centos7 image with your selected `RELEASE` of Node.js via the following command format:
+### OpenShift
 
-```
-oc new-app bucharestgold/centos7-s2i-nodejs:RELEASE~REPO_URL
-```
-
-For example, you can run a build (including `npm install` steps), using  [`s2i-nodejs`](http://github.com/bucharest-gold/s2i-nodejs) example repo, and the `latest` release of
-Node.js with:
+The [`oc` command-line tool](https://github.com/openshift/origin/releases) can be
+used to start a build, layering your desired nodejs `REPO_URL` sources into a centos7
+image with your selected `RELEASE` of Node.js via the following command format:
 
 ```
-oc new-app bucharestgold/centos7-s2i-nodejs:latest~https://github.com/bucharest-gold/s2i-nodejs
+oc new-app bucharestgold/centos7-s2i-nodejs:latest~https://github.com/bucharest-gold/nodejs-rest-http
 ```
 
-<!--
-Or, to run the latest `lts-6` release:
+#### OpenShift Catalog
+
+With OpenShift, it is also possible to import this builder image into the
+online Catalog, so that applications can be created and deployed using this Node.js
+image through the web-based user interface. To import the images, run the following
+openshift command.
 
 ```
-oc new-app bucharestgold/centos7-s2i-nodejs:lts-6~https://github.com/bucharest-gold/s2i-nodejs
+oc create -f image-stream.yml
 ```
 
-You can try using any of the available tagged Node.js releases, and your own repo sources - as long as your application source will init correctly with `npm start`, and listen on port 8080.
--->
+### Docker
 
-### Environment variables
+The [Source2Image cli tools](https://github.com/openshift/source-to-image/releases)
+are available as a standalone project, allowing you to run your application directly
+in Docker.
+
+This example will produce a new Docker image named `webapp`:
+
+```
+s2i build https://github.com/bucharest-gold/nodejs-rest-http bucharestgold/centos7-s2i-nodejs:latest webapp
+```
+
+Then you can run the application image like this.
+
+```
+docker run -p 8080:8080 --rm -it webapp
+```
+
+## Configuration
 
 Use the following environment variables to configure the runtime behavior of the
 application image created from this builder image.
@@ -79,37 +94,11 @@ To change your source code in a running container, use Docker's [exec](http://do
 docker exec -it <CONTAINER_ID> /bin/bash
 ```
 
-After you [Docker exec](http://docker.io) into the running container, your current directory is set to `/opt/app-root/src`, where the source code for your application is located.
+After you [Docker exec](http://docker.io) into the running container, your current directory is set
+to `/opt/app-root/src`, where the source code for your application is located.
 
 ### Using OpenShift's rsync
 
-If you have deployed the container to OpenShift, you can use [oc rsync](https://docs.openshift.org/latest/dev_guide/copy_files_to_container.html) to copy local files to a remote container running in an OpenShift pod.
-
-## Builds
-
-The [Source2Image cli tools](https://github.com/openshift/source-to-image/releases) are available as a standalone project, allowing you to [run builds outside of OpenShift](https://github.com/bucharest-gold/origin-s2i-nodejs/blob/master/nodejs.org/README.md#usage).
-
-This example will produce a new docker image named `webapp`:
-
-```
-s2i build https://github.com/bucharest-gold/s2i-nodejs bucharestgold/centos7-s2i-nodejs:current webapp
-```
-
-## Building your own Builder images
-
-Clone a copy of this repo to fetch the build sources:
-
-```
-git clone https://github.com/bucharest-gold/centos7-s2i-nodejs.git
-cd centos7-s2i-nodejs
-```
-
-### Requirements - docker-squash
-
-`pip install docker-squash`
-
-To build your own S2I Node.js builder images from scratch, run:
-
-```
-make all
-```
+If you have deployed your application to OpenShift, you can use
+[oc rsync](https://docs.openshift.org/latest/dev_guide/copy_files_to_container.html) to copy local
+files to a remote container running in an OpenShift pod.
