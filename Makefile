@@ -33,9 +33,11 @@ clean:
 .PHONY: tag
 tag:
 	if [ ! -z $(LTS_TAG) ]; then docker tag $(TARGET) $(IMAGE_NAME):$(LTS_TAG); fi
+	docker tag $(TARGET) $(IMAGE_NAME):$(NODE_VERSION)
 
 .PHONY: publish
 publish: all
 	echo $(DOCKER_PASS) | docker login -u $(DOCKER_USER) --password-stdin
 	docker push $(TARGET)
+	docker push $(IMAGE_NAME):$(NODE_VERSION)
 	if [ ! -z $(LTS_TAG) ]; then docker push $(IMAGE_NAME):$(LTS_TAG); fi
