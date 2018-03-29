@@ -16,6 +16,7 @@ ENV NPM_RUN=start \
     NODE_LTS=false \
     NPM_CONFIG_LOGLEVEL=info \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
+    NPM_CONFIG_TARBALL=/usr/share/node/node-v${NODE_VERSION}-headers.tar.gz \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH \
     DEBUG_PORT=5858 \
     SUMMARY="Platform for building and running Node.js ${NODE_VERSION} applications" \
