@@ -24,17 +24,17 @@ Check out the master branch and be sure you are up to date.
 ```sh
 $ git fetch upstream
 $ git rebase upstream/master master
-$ git push upstream master
 ```
 
 Make your code changes, then test and commit them. The `master` branch
 can be published without a tag since it does not track a specific release.
 
 ```sh
+$ git push upstream master
 $ make tag publish
 ```
 
-Now you need to update all of the versions we are currently with these
+Now you need to update all of the versions we are supporting with these
 changes. Currently, that means the `8.x` and `9.x` branches. Check out
 each branch, apply the changes, test, commit and publish.
 
@@ -116,7 +116,7 @@ make tag publish
 
 # The 10.x branch has all the commits we need.
 # Tag it with the node version and push.
-git tag -s -m "Node.js 10.0.0 release" node-10.0.0 
+git tag -s -m "Node.js 10.0.0 release" node-10.0.0
 git push upstream 10.x --follow-tags
 
 ```

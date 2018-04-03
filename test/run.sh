@@ -209,6 +209,20 @@ test_symlinks() {
   fi
 }
 
+test_git_configuration() {
+  local run_cmd="git config -l"
+  local expected="url.https://github.com.insteadof=git@github.com:
+url.https://.insteadof=ssh://
+url.https://github.com.insteadof=ssh://git@github.com"
+
+  echo "Checking git configuration ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
 prepare
@@ -242,6 +256,9 @@ test_node_version
 check_result $?
 
 test_connection
+check_result $?
+
+test_git_configuration
 check_result $?
 
 echo "Testing DEV_MODE=false (default)"
@@ -281,6 +298,7 @@ check_result $?
 cleanup
 if image_exists ${APP_IMAGE}; then
   docker rmi -f ${APP_IMAGE}
+  # echo "<><><><><><><><><><><> NOT CLEANING UP åå<><><><><><><><><><><>"
 fi
 
 echo "Success!"
