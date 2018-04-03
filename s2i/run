@@ -9,6 +9,7 @@ if [ "$NODE_ENV" == "production" ]; then
   export DEV_MODE=false
 else
   export DEV_MODE=true
+  set -x
 fi
 
 # Runs the nodejs application server.
@@ -17,7 +18,7 @@ run_node() {
   echo -e "Running as user $(id)"
   if [ "$DEV_MODE" == true ]; then
     echo "Installing dev dependencies..."
-    npm install -s
+    npm install
     echo "Launching via nodemon..."
     exec npx nodemon --inspect="$DEBUG_PORT"
   else
