@@ -16,7 +16,8 @@
     "@types/node": "~9.4.0",
     "typescript": "~2.7.1",
     "roi": "*",
-    "node-gyp": "*"
+    "node-gyp": "*",
+    "world": "github:bucharest-gold/world"
   },
   "gypfile": true
 }

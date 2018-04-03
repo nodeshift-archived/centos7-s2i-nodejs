@@ -4,6 +4,10 @@ set -e
 
 source /usr/libexec/s2i/env
 
+if [ "$DEV_MODE" == true ] ; then
+	set -x
+fi
+
 chmod 775 -R /tmp/src/.
 
 echo "---> Installing application source"
@@ -44,6 +48,8 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
 	exec npm run postinstall
 else
 	echo "---> Building your Node application from source"
+  echo -e "Current git config"
+  git config --list
 	if [ ! -z "$YARN_ENABLED" ]; then
 		echo "---> Using 'yarn install' with YARN_ARGS"
 		yarn install $YARN_ARGS
@@ -51,7 +57,7 @@ else
 		echo "---> Installing dependencies"
 		if [ "$DEV_MODE" == true ]; then
 			echo "---> Using 'npm install'"
-			npm install -s
+			npm install
 		else
 			echo "---> Using 'npm install -s --only=production'"
 			npm install -s --only=production
