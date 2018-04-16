@@ -47,7 +47,7 @@ image through the web-based user interface. To import the images, run the follow
 openshift command.
 
 ```
-oc create -f image-stream.yml
+oc create -f imagestreams/image-stream.yml
 ```
 
 ### Docker
