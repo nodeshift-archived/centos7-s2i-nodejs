@@ -5,7 +5,7 @@ metadata:
   annotations:
     openshift.io/display-name: Node.js
     description: >
-      Build and run Node.js applications on RHEL 7.
+      Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/bucharest-gold/centos7-s2i-nodejs.
 spec:
   tags:
     - name: '8.x'
