@@ -1,0 +1,22 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: rhoar-nodejs
+  annotations:
+    openshift.io/display-name: Node.js
+    description: >
+      Build and run Node.js applications on RHEL 7.
+spec:
+  tags:
+    - name: '8.x'
+      annotations:
+        openshift.io/display-name: Node.js 8.x
+        description: >
+          Build and run Node.js 8.x applications on RHEL 7.
+        iconClass: icon-nodejs
+        sampleRepo: 'https://github.com/bucharest-gold/nodejs-rest-http.git'
+        tags: 'builder,node,nodejs,node.js'
+        version: 8.9.4
+      from:
+        kind: DockerImage
+        name: 'registry.access.redhat.com/rhoar-nodejs/nodejs-8'
