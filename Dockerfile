@@ -43,8 +43,10 @@ COPY ./s2i/ $STI_SCRIPTS_PATH
 COPY ./contrib/ /opt/app-root
 
 RUN /opt/app-root/etc/install_node.sh
+RUN /usr/bin/scl enable rh-git29 true
 
 USER 1001
 
+ENTRYPOINT ["/usr/bin/scl", "enable", "rh-git29", "--"]
 # Set the default CMD to print the usage
-CMD ${STI_SCRIPTS_PATH}/usage
+CMD ["/usr/bin/scl", "enable", "rh-git29", "${STI_SCRIPTS_PATH}/usage"]

@@ -1,6 +1,20 @@
 #!/bin/bash
 
 set -ex
+
+yum install -y centos-release-scl
+yum install -y rh-git29
+scl enable rh-git29 bash
+
+# Ensure git uses https instead of ssh for NPM install
+# See: https://github.com/npm/npm/issues/5257
+echo -e "Setting git config rules"
+git config --system url."https://github.com".insteadOf git@github.com:
+git config --global url."https://github.com".insteadOf ssh://git@github.com
+git config --system url."https://".insteadOf git://
+git config --system url."https://".insteadOf ssh://
+git config --list
+
 yum install -y --setopt=tsflags=nodocs openssl
 yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
 yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
