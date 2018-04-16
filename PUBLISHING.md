@@ -1,6 +1,11 @@
 # Publishing the `centos7-s2i-nodejs` images to Docker Hub
 
-When there is a new release of Node.js, these images need to be updated.
+There are a couple of different scenarios that would require newly
+published images. The obvious case is when there is a new Node.js
+version released. But sometimes we need to push a new image because
+there was a bug fix in the builder image. Or we changed something
+in the `node-rpm` distribution.
+
 Follow these steps to publish. In all cases, you should have `DOCKER_USER`
 and `DOCKER_PASS` defined in your environment.
 
@@ -9,57 +14,71 @@ $ export DOCKER_USER=lanceball
 $ export DOCKER_PASS=xxxxxxxxx
 ```
 
-## Updating node versions
+## Bug fixes to the builder image
 
-You will need command line tools to update `releases.json`, which contains metadata about each
-of the available release versions; and `image-streams.centos7.json`, which provides metadata
-for OpenShift integration of these builder images in the OpenShift user interface.
+When we need to publish new images because the underlying builder
+(and not Node.js itself) has changed. The process is pretty simple.
 
-First install the node tools.
+Check out the master branch and be sure you are up to date.
 
+```sh
+$ git fetch upstream
+$ git rebase upstream/master master
 ```
-$ npm install -g node-metadata
-$ npm install -g node-image-stream
+
+Make your code changes, then test and commit them. The `master` branch
+can be published without a tag since it does not track a specific release.
+
+```sh
+$ git push upstream master
+$ make tag publish
 ```
 
-And a nice json formatter called [`jq`](https://stedolan.github.io/jq/download/).
+Now you need to update all of the versions we are supporting with these
+changes. Currently, that means the `8.x` and `9.x` branches. Check out
+each branch, apply the changes, test, commit and publish.
 
-Then use these tools to update the relevant files. Follow the commands outlined below.
-
+```sh
+$ git checkout 8.x
+$ git cherry-pick <sha> # get the commit that you applied in master
 ```
-node-metadata -i 4 5 6 7 8 | jq '.' > releases.json # Write release metadata to disk
-node-image-stream -f releases.json -i bucharestgold/centos7-s2i-nodejs > image-streams.centos7.json # write image stream data
-git add releases.json image-streams.centos7.json
-git commit -a -m "(chore): update node versions"
+
+If the cherry-picking fails, you'll need to figure out what went wrong
+and fix it. You can run `git status` to see where there were problems.
+If you need to, then, make these fixes, then use `git add` and
+`git cherry-pick --continue` to finish applying them.
+
+Each of these branches should be tagged with the Node.js version number
+and a suffix signifying the update for this release. For example, if the
+current 9.x release is `9.4.0` and you are making updates to the `9.x`
+branch, you should look for the most current 9.x tag and increment it.
+
+```sh
+$ git tag | grep node-9.4.0 # Find the most recent release (e.g. node-9.4.0-2)
+$ git tag node-9.4.0-3 # Increment the version suffix
+$ git push upstream 9.x --follow-tags # Push the tag upstream
 ```
 
 ## New minor or patch-level release
 
-Let's say that Node.js version 7.10.1 is released and we are currently
-publishing 7.10.0. This is a patch level version bump. Note that these
+Let's say that Node.js version 9.10.1 is released and we are currently
+publishing 9.10.0. This is a patch level version bump. Note that these
 steps will be the same for a minor release, for example, in
-this case, if Node.js 7.11.0 is released.
+this case, if Node.js 9.11.0 is released.
 
 Take the following steps to publish the latest version.
 
 ```sh
 # switch to the branch being published
-git checkout 7.x
+git checkout 9.x
 
 # update with any changes not present locally
-git pull origin 7.x
+git pull upstream 9.x
+git rebase upstream/9.x 9.x
 
-# Change the version numbers in the readme and Makefile.
-# The Makefile has version numbers for Node, NPM and V8.
-# You'll need to update all of those. In this case, the
-# change should look like this:
-# NODE_VERSION=7.10.0
-# NPM_VERSION=4.2.0
-# V8_VERSION=5.5.372.43
-# To obtain the version numbers for NPM and V8, you can
-# check out Node's releases metadata:
-# https://nodejs.org/dist/index.json
-vi README.md Makefile
+# Change the version numbers in versions.mk
+# NODE_VERSION=9.10.1
+# NPM_VERSION=5.6.0
 
 # Make sure nothing broke
 make all
@@ -68,27 +87,26 @@ make all
 make tag publish
 
 # If everything looks good, commit, tag and push to github
-git commit -a -m "(chore) update to Node.js 7.10.1"
-git tag -s node-7.10.1 "Node.js 7.10.1 release"
-git push origin 7.x --follow-tags
+git commit -a -m "chore: update to Node.js 9.10.1"
+git tag -s -m "Node.js 9.10.1 release" node-9.10.1
+git push upstream 9.x --follow-tags
 ```
 
 ## New major version
 
 If there is a new major version released, we'll need to create
 a new branch for it. The `master` branch is always tracking the
-latest Node.js version, so let's start there. Node 8 is released.
+latest Node.js version, so let's start there. Node 10 is released.
 
 ```sh
 # update with any changes not present locally
-git pull origin master
+git pull upstream master
 
-# Add the new version number in the readme and Makefile
-# NODE_VERSION=8.0.0
-# NPM_VERSION=5.0.0
-# V8_VERSION=5.8.283.41
-# IMAGE_TAG=8.x
-vi README.md Makefile
+# Create a new branch for the version
+git checkout -b v10.x
+
+# Add the new version number in versions.mk and Makefile
+# and commit your changes on this new branch
 
 # Make sure nothing broke
 make all
@@ -96,21 +114,11 @@ make all
 # Then make the docker image tags and publish
 make tag publish
 
-# We've published the new release under the 'latest' tag.
-# Commit and push that to github, then deal with the new branch.
-git commit -a -m "(chore) release 8.x version"
-git push origin master
+# The 10.x branch has all the commits we need.
+# Tag it with the node version and push.
+git tag -s -m "Node.js 10.0.0 release" node-10.0.0
+git push upstream 10.x --follow-tags
 
-# Now create the 8.x branch. Make sure all is good and publish to
-# Docker hub.
-git checkout -b 8.x
-make tag publish
-
-# The 8.x branch has all the commits we need
-# right now, since we just made those changes on master.
-# Just tag it with the node version and push.
-git tag -s node-8.0.0 -m "Node.js 8.0.0 release"
-git push origin 8.x --follow-tags
 ```
 
 Don't forget the git tags. These are important and allow us to roll back
