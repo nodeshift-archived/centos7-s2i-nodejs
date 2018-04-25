@@ -3,14 +3,14 @@ kind: ImageStream
 metadata:
   name: rhoar-nodejs
   annotations:
-    openshift.io/display-name: Node.js
+    openshift.io/display-name: OpenShift Application Runtimes Node.js
     description: >
-      Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/bucharest-gold/centos7-s2i-nodejs.
+      Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift/source-to-image/blob/master/README.md.
 spec:
   tags:
     - name: '8.x'
       annotations:
-        openshift.io/display-name: Node.js 8.x
+        openshift.io/display-name: OpenShift Application Runtimes Node.js
         description: >
           Build and run Node.js 8.x applications on RHEL 7.
         iconClass: icon-nodejs
