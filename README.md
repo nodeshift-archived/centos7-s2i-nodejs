@@ -15,7 +15,7 @@ Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/cen
 
 Version  | Tag
 -------- | -----
-`10.0.0` | (10.x-cr)
+`10.0.0` | (10.x)
 `9.11.1` | (9.x, latest)
 `8.11.1` | (8.x, Carbon)
 `7.10.1` | (7.x)
