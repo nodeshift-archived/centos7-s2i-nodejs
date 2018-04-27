@@ -4,7 +4,8 @@ set -ex
 
 yum install -y centos-release-scl
 yum install -y rh-git29
-scl enable rh-git29 bash
+ln -fs /opt/rh/rh-git29/root/usr/bin/git /usr/bin/git
+git --version
 
 # Ensure git uses https instead of ssh for NPM install
 # See: https://github.com/npm/npm/issues/5257
