@@ -57,13 +57,21 @@ prepare() {
 
 run_test_application() {
   echo "Starting test application ${APP_IMAGE}..."
-  docker run --rm --cidfile=${cid_file} -p ${test_port}:${test_port} $1 ${APP_IMAGE}
+  docker run --cidfile=${cid_file} -p ${test_port}:${test_port} $1 ${APP_IMAGE}
 }
 
 cleanup() {
   if [ -f $cid_file ]; then
     if container_exists; then
-      docker stop $(cat $cid_file)
+      cid=$(cat $cid_file)
+      docker stop $cid
+      exit_code=`docker inspect --format="{{ .State.ExitCode }}" $cid`
+      echo "Container exit code = $exit_code"
+      # Only check the exist status for non DEV_MODE
+      if [ "$1" == "false" ] &&  [ "$exit_code" != "222" ] ; then
+        echo "ERROR: The exist status should have been 222."
+        exit 1
+      fi
     fi
   fi
   cids=`ls -1 *.cid 2>/dev/null | wc -l`
@@ -132,7 +140,7 @@ test_node_version() {
   local expected="v${NODE_VERSION}"
 
   echo "Checking nodejs runtime version ..."
-  out=$(docker run --rm ${BUILDER} /bin/bash -c "${run_cmd}")
+  out=$(docker run ${BUILDER} /bin/bash -c "${run_cmd}")
   if ! echo "${out}" | grep -q "${expected}"; then
     echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
     return 1
@@ -271,7 +279,8 @@ echo ${logs} | grep -q DEBUG_PORT=5858
 check_result $?
 test_no_development_dependencies
 check_result $?
-cleanup
+# The argument to clean up is the DEV_MODE
+cleanup false
 
 run_test_application "-e DEV_MODE=true" &
 wait_for_cid
@@ -295,7 +304,8 @@ echo "Testing symlinks"
 test_symlinks
 check_result $?
 
-cleanup
+# The argument to clean up is the DEV_MODE
+cleanup true
 if image_exists ${APP_IMAGE}; then
   docker rmi -f ${APP_IMAGE}
   # echo "<><><><><><><><><><><> NOT CLEANING UP åå<><><><><><><><><><><>"

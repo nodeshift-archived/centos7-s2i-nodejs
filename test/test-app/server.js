@@ -8,6 +8,11 @@ const os = require('os');
 const port = process.env.PORT || process.env.port || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 const ip = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
+process.on('SIGTERM', function(signal) {
+  console.log('Server recieved SIGTERM');
+  process.exit(222);
+});
+
 let nodeEnv = process.env.NODE_ENV || 'unknown';
 
 const server = http.createServer((req, res) => {
