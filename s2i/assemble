@@ -39,32 +39,23 @@ if [ ! -z "$NPM_MIRROR" ]; then
 	npm config set registry $NPM_MIRROR
 fi
 
-if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
-  echo "---> Restoring build artifacts..."
-  mv /tmp/artifacts/node_modules ./
-	# Since we aren't explicitly running install, we need to
-	# execute any postinstall scripts explicitly, e.g.
-	# to compile typescript
-	exec npm run postinstall
+echo "---> Building your Node application from source"
+echo -e "Current git config"
+git config --list
+if [ ! -z "$YARN_ENABLED" ]; then
+	echo "---> Using 'yarn install' with YARN_ARGS"
+	yarn install $YARN_ARGS
 else
-	echo "---> Building your Node application from source"
-  echo -e "Current git config"
-  git config --list
-	if [ ! -z "$YARN_ENABLED" ]; then
-		echo "---> Using 'yarn install' with YARN_ARGS"
-		yarn install $YARN_ARGS
+	echo "---> Installing dependencies"
+	if [ "$DEV_MODE" == true ]; then
+		echo "---> Using 'npm install'"
+		npm install
 	else
-		echo "---> Installing dependencies"
-		if [ "$DEV_MODE" == true ]; then
-			echo "---> Using 'npm install'"
-			npm install
-		else
-			echo "---> Using 'npm install -s --only=production'"
-			npm install -s --only=production
-		fi
-		echo "---> Cleaning up npm cache"
-		rm -rf .npm
-		echo "---> Setting directory write permissions"
-		exec chmod -R g+rw .
+		echo "---> Using 'npm install -s --only=production'"
+		npm install -s --only=production
 	fi
+	echo "---> Cleaning up npm cache"
+	rm -rf .npm
+	echo "---> Setting directory write permissions"
+	exec chmod -R g+rw .
 fi
