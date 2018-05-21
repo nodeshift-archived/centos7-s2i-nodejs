@@ -87,6 +87,15 @@ in a `.s2i/environment` file in your source repository.
 
 Example: `DATABASE_USER=sampleUser`
 
+### Debug Mode
+
+When `NODE_ENV` is set to `development` or `DEV_MODE` is set to true, your Node.js application
+will be started using `nodemon`.
+
+```
+npx nodemon --inspect="$DEBUG_PORT"
+```
+
 ### Using Docker's exec
 
 To change your source code in a running container, use Docker's [exec](http://docker.io) command:
