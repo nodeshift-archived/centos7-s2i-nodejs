@@ -15,9 +15,9 @@ Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/cen
 
 Version  | Tag
 -------- | -----
-`10.4.1` | (10.x)
+`10.6.0` | (10.x)
 `9.11.1` | (9.x, latest)
-`8.11.2` | (8.x, Carbon)
+`8.11.3` | (8.x, Carbon)
 `7.10.1` | (7.x)
 `6.11.4` | (6.x, Boron)
 `5.12.0` | (5.x)
@@ -48,7 +48,7 @@ image through the web-based user interface. To import the images, run the follow
 openshift command.
 
 ```
-oc create -f imagestreams/image-stream.yml
+oc create -f imagestreams/nodejs-centos7.json
 ```
 
 ### Docker
