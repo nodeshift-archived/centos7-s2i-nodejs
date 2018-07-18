@@ -123,3 +123,6 @@ git push upstream 10.x --follow-tags
 
 Don't forget the git tags. These are important and allow us to roll back
 to any previously published version if necessary!
+
+Don't forget to update the [table](https://github.com/helio-frota/centos7-s2i-nodejs#versions) with the new version published and send a pull request 
+to update the `README.md` on the master branch.
