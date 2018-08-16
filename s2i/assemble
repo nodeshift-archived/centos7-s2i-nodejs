@@ -8,7 +8,8 @@ if [ "$DEV_MODE" == true ] ; then
 	set -x
 fi
 
-chmod 775 -R /tmp/src/.
+# echo "---> Setting directory write permissions"
+# fix-permissions /opt/app-root
 
 echo "---> Installing application source"
 cp -Rfp /tmp/src/. ./
@@ -42,6 +43,7 @@ fi
 echo "---> Building your Node application from source"
 echo -e "Current git config"
 git config --list
+
 if [ ! -z "$YARN_ENABLED" ]; then
 	echo "---> Using 'yarn install' with YARN_ARGS"
 	yarn install $YARN_ARGS
@@ -54,8 +56,7 @@ else
 		echo "---> Using 'npm install -s --only=production'"
 		npm install -s --only=production
 	fi
-	echo "---> Cleaning up npm cache"
-	rm -rf .npm
-	echo "---> Setting directory write permissions"
-	exec chmod -R g+rw .
 fi
+
+echo "---> Cleaning up npm cache"
+rm -rf .npm
