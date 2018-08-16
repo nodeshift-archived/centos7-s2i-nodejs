@@ -1,4 +1,4 @@
-FROM=openshift/base-centos7
+FROM=centos/s2i-base-centos7
 IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
 
 # These values are changed in each version branch
