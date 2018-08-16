@@ -1,9 +1,10 @@
 #!/bin/bash
 
 set -ex
-INSTALL_PKGS="centos-release-scl nss_wrapper rh-git29"
+yum install -y centos-release-scl
+INSTALL_PKGS="nss_wrapper rh-git29 gcc-c++ make"
 
-yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon
+yum remove -y rh-nodejs8-npm
 
 yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS
 ln -fs /opt/rh/rh-git29/root/usr/bin/git /usr/bin/git
@@ -22,6 +23,7 @@ yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${N
 
 rpm -V $INSTALL_PKGS
 yum clean all -y
+rm -rf /var/cache/yum
 
 # Install yarn
 npm install -g yarn -s &>/dev/null
