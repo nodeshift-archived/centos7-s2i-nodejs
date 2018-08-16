@@ -1,8 +1,8 @@
 #!/bin/bash
-
 set -e
 
 source /usr/libexec/s2i/env
+source /usr/libexec/s2i/generate-container-user
 
 # Set the environment for this build configuration to production by default.
 if [ "$NODE_ENV" == "production" ]; then
