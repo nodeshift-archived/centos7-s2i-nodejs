@@ -1,9 +1,11 @@
 #!/bin/bash
 
 set -ex
+INSTALL_PKGS="centos-release-scl nss_wrapper rh-git29"
 
-yum install -y centos-release-scl
-yum install -y rh-git29
+yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon
+
+yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS
 ln -fs /opt/rh/rh-git29/root/usr/bin/git /usr/bin/git
 
 # Ensure git uses https instead of ssh for NPM install
@@ -15,9 +17,11 @@ git config --system url."https://".insteadOf git://
 git config --system url."https://".insteadOf ssh://
 git config --list
 
-yum install -y --setopt=tsflags=nodocs openssl
 yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
 yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
+
+rpm -V $INSTALL_PKGS
+yum clean all -y
 
 # Install yarn
 npm install -g yarn -s &>/dev/null
