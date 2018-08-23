@@ -8,9 +8,6 @@ if [ "$DEV_MODE" == true ] ; then
 	set -x
 fi
 
-# echo "---> Setting directory write permissions"
-# fix-permissions /opt/app-root
-
 echo "---> Installing application source"
 cp -Rfp /tmp/src/. ./
 
@@ -60,3 +57,6 @@ fi
 
 echo "---> Cleaning up npm cache"
 rm -rf .npm
+
+echo "---> Fix permissions on app-root"
+fix-permissions /opt/app-root
