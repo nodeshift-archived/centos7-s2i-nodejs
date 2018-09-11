@@ -1,6 +1,6 @@
 before_script:
   - wget https://github.com/openshift/source-to-image/releases/download/v1.1.10/source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz
-  - tar source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz > s2i.bin
+  - tar xvzOf source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz > s2i.bin
   - sudo mv s2i.bin /usr/bin/s2i
   - sudo chmod 755 /usr/bin/s2i
 
