@@ -1,17 +1,8 @@
-dist: trusty
 before_script:
-  - sudo mount --make-shared /
-  - sudo service docker stop
-  - sudo sed -i 's/DOCKER_OPTS=\"/DOCKER_OPTS=\"--insecure-registry 172.30.0.0\/16 /' /etc/default/docker
-  - sudo service docker start
-  - wget https://github.com/openshift/source-to-image/releases/download/v1.1.7/source-to-image-v1.1.7-226afa1-linux-amd64.tar.gz
-  - tar xvzOf source-to-image-v1.1.7-226afa1-linux-amd64.tar.gz > s2i.bin
+  - wget https://github.com/openshift/source-to-image/releases/download/v1.1.10/source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz
+  - tar xvzOf source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz > s2i.bin
   - sudo mv s2i.bin /usr/bin/s2i
   - sudo chmod 755 /usr/bin/s2i
-  - wget https://github.com/openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-linux-64bit.tar.gz
-  - tar xvzOf openshift-origin-client-tools-v3.7.0-7ed6862-linux-64bit.tar.gz > oc.bin
-  - sudo mv oc.bin /usr/bin/oc
-  - sudo chmod 755 /usr/bin/oc
 
 script:
   - SKIP_SQUASH=true make all
