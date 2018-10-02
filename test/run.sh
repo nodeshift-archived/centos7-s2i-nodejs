@@ -135,16 +135,44 @@ test_connection() {
   return $result
 }
 
+test_builder_node_version() {
+  local run_cmd="node --version"
+  local expected_version="v${NODE_VERSION}"
+
+  echo "Checking nodejs runtime version ..."
+  out=$(docker run ${BUILDER} /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected_version}"; then
+    echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected_version}', got '${out}'"
+    return 1
+  fi
+
+  echo "Checking NPM_CONFIG_TARBALL environment variable"
+  out=$(docker run ${BUILDER} /bin/bash -c 'echo $NPM_CONFIG_TARBALL')
+  local expected_var="/usr/share/node/node-v${NODE_VERSION}-headers.tar.gz"
+  if ! echo "${out}" | grep -q "${expected_var}"; then
+    echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected_var}', got '${out}'"
+    return 1
+  fi
+}
+
+test_nss_wrapper() {
+  read -d '' run_cmd <<-"HERE"
+  echo 'danbev:x:1000:1000:danbev test:/home/danbev:/bin/false' > passwd &&
+  LD_PRELOAD=libnss_wrapper.so NSS_WRAPPER_PASSWD=passwd NSS_WRAPPER_GROUP=group getent passwd danbev
+HERE
+  echo "Checking nss_wrapper ..."
+  out=$(docker run ${BUILDER} /bin/bash -c "${run_cmd}" 2>&1)
+  if echo "${out}" | grep -q "ERROR"; then
+    echo "ERROR[/bin/bash -c "${run_cmd}"] '${out}'"
+    return 1
+  fi
+}
+
 test_node_version() {
   local run_cmd="node --version"
   local expected="v${NODE_VERSION}"
 
   echo "Checking nodejs runtime version ..."
-  out=$(docker run ${BUILDER} /bin/bash -c "${run_cmd}")
-  if ! echo "${out}" | grep -q "${expected}"; then
-    echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
-    return 1
-  fi
   out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}" 2>&1)
   if ! echo "${out}" | grep -q "${expected}"; then
     echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
@@ -230,6 +258,13 @@ url.https://github.com.insteadof=ssh://git@github.com"
     return 1
   fi
 }
+
+prepare
+test_builder_node_version
+check_result $?
+
+test_nss_wrapper
+check_result $?
 
 # Build the application image twice to ensure the 'save-artifacts' and
 # 'restore-artifacts' scripts are working properly
