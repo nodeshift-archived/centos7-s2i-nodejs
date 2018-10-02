@@ -155,6 +155,19 @@ test_builder_node_version() {
   fi
 }
 
+test_nss_wrapper() {
+  read -d '' run_cmd <<-"HERE"
+  echo 'danbev:x:1000:1000:danbev test:/home/danbev:/bin/false' > passwd &&
+  LD_PRELOAD=libnss_wrapper.so NSS_WRAPPER_PASSWD=passwd NSS_WRAPPER_GROUP=group getent passwd danbev
+HERE
+  echo "Checking nss_wrapper ..."
+  out=$(docker run ${BUILDER} /bin/bash -c "${run_cmd}" 2>&1)
+  if echo "${out}" | grep -q "ERROR"; then
+    echo "ERROR[/bin/bash -c "${run_cmd}"] '${out}'"
+    return 1
+  fi
+}
+
 test_node_version() {
   local run_cmd="node --version"
   local expected="v${NODE_VERSION}"
@@ -248,6 +261,9 @@ url.https://github.com.insteadof=ssh://git@github.com"
 
 prepare
 test_builder_node_version
+check_result $?
+
+test_nss_wrapper
 check_result $?
 
 # Build the application image twice to ensure the 'save-artifacts' and
