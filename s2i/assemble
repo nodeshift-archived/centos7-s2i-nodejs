@@ -50,8 +50,15 @@ else
 		echo "---> Using 'npm install'"
 		npm install
 	else
-		echo "---> Using 'npm install -s --only=production'"
-		npm install -s --only=production
+		echo "---> Installing all dependencies"
+		NODE_ENV=development npm install
+
+		#do not fail when there is no build script
+		echo "---> Building in production mode"
+		npm run build --if-present
+
+		echo "---> Pruning the development dependencies"
+		npm prune
 	fi
 fi
 
