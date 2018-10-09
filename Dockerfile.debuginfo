@@ -1,0 +1,39 @@
+FROM centos:centos7
+
+ARG NODE_VERSION
+ARG NPM_VERSION
+ARG DOWNLOAD_URL=https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}
+
+ENV SUMMARY="Image for remote gdb debugging of Node.js $NODE_VERSION applications" \
+    DESCRIPTION="This image contains Node.js $NODE_VERSION and gdb allowing \
+it to be used to remote debug Node.js applications."
+
+LABEL io.k8s.description="$DESCRIPTION" \
+      io.k8s.display-name="Node.js $NODE_VERSION" \
+      io.openshift.tags="nodejs,nodejs-$NODE_VERSION" \
+      maintainer="Daniel Bevenius <daniel.bevenius@gmail.com>" \
+      summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      version="$NODE_VERSION" \
+      name="bucharestgold/centos7-s2i-nodejs-debuginfo"
+
+RUN echo ${DOWNLOAD_URL}
+RUN yum install -y ${DOWNLOAD_URL}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm \
+  ${DOWNLOAD_URL}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm \
+  ${DOWNLOAD_URL}/rhoar-nodejs-debuginfo-${NODE_VERSION}-1.el7.centos.x86_64.rpm && \
+  INSTALL_PKGS="bzip2 \
+  gdb \
+  lsof \
+  procps-ng \
+  unzip \
+  wget" && \
+  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+  rpm -V $INSTALL_PKGS && \
+  yum clean all -y
+
+COPY ./contrib/etc/gdbinit /etc/gdbinit
+RUN echo 'alias gdb="gdb -q"' >> /etc/profile.d/gdb.sh
+
+USER 1001
+
+CMD ["/bin/bash", "-l"]

@@ -41,7 +41,7 @@ LABEL io.k8s.description="$DESCRIPTION" \
       name="nodeshift/centos7-s2i-nodejs"
 
 COPY ./s2i/ $STI_SCRIPTS_PATH
-COPY ./contrib/ /opt/app-root
+COPY ./contrib/etc/install_node.sh /opt/app-root/etc/install_node.sh
 
 RUN /opt/app-root/etc/install_node.sh
 
