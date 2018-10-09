@@ -7,15 +7,22 @@ IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
 include versions.mk
 
 TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
+DEBUG_TARGET=$(IMAGE_NAME)-debuginfo:$(IMAGE_TAG)
 
 .PHONY: all
-all: build squash test
+all: build build-debuginfo squash test
 
 build: Dockerfile s2i contrib
 	docker build \
 	--build-arg NODE_VERSION=$(NODE_VERSION) \
 	--build-arg NPM_VERSION=$(NPM_VERSION) \
 	-t $(TARGET) .
+
+build-debuginfo: Dockerfile.debuginfo
+	docker build -f Dockerfile.debuginfo \
+	--build-arg NODE_VERSION=$(NODE_VERSION) \
+	--build-arg NPM_VERSION=$(NPM_VERSION) \
+	-t $(DEBUG_TARGET) .
 
 .PHONY: squash
 squash:
@@ -32,12 +39,21 @@ clean:
 
 .PHONY: tag
 tag:
-	if [ ! -z $(LTS_TAG) ]; then docker tag $(TARGET) $(IMAGE_NAME):$(LTS_TAG); fi
+	if [ ! -z $(LTS_TAG) ]; then 
+	  docker tag $(TARGET) $(IMAGE_NAME):$(LTS_TAG) 
+	  docker tag $(DEBUG_TARGET) $(IMAGE_NAME)-debuginfo:$(LTS_TAG) 
+	fi
 	docker tag $(TARGET) $(IMAGE_NAME):$(NODE_VERSION)
+	docker tag $(DEBUG_TARGET) $(IMAGE_NAME)-debuginfo:$(NODE_VERSION)
 
 .PHONY: publish
 publish: all
 	echo $(DOCKER_PASS) | docker login -u $(DOCKER_USER) --password-stdin
 	docker push $(TARGET)
 	docker push $(IMAGE_NAME):$(NODE_VERSION)
-	if [ ! -z $(LTS_TAG) ]; then docker push $(IMAGE_NAME):$(LTS_TAG); fi
+	docker push $(DEBUG_TARGET)
+	docker push $(IMAGE_NAME)-debuginfo:$(NODE_VERSION)
+	if [ ! -z $(LTS_TAG) ]; then 
+	  docker push $(IMAGE_NAME):$(LTS_TAG)
+	  docker push $(IMAGE_NAME)-debuginfo:$(LTS_TAG)
+	fi
