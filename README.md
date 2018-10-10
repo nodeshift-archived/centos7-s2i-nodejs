@@ -110,5 +110,5 @@ to `/opt/app-root/src`, where the source code for your application is located.
 ### Using OpenShift's rsync
 
 If you have deployed your application to OpenShift, you can use
-[oc rsync](https://docs.openshift.org/latest/dev_guide/copy_files_to_container.html) to copy local
+[oc rsync](https://docs.okd.io/latest/dev_guide/copy_files_to_container.html) to copy local
 files to a remote container running in an OpenShift pod.
