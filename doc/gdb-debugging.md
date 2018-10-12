@@ -25,6 +25,11 @@ $ gdbserver 172.17.0.6:7777 --attach 30
 Attached; pid = 30
 Listening on port 7777
 ```
+The ip address used should be that of the pod which can be found by running:
+```console
+$ hostname -i
+172.17.0.6
+```
 The gdbserver is now listening for connections.
 
 #### Start the debuginfo image
