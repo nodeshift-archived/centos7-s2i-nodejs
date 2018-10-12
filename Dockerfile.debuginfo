@@ -18,6 +18,9 @@ RUN yum install -y ${DOWNLOAD_URL}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86
   rpm -V $INSTALL_PKGS && \
   yum clean all -y
 
+COPY ./contrib/etc/gdbinit /etc/gdbinit
+RUN echo 'alias gdb="gdb -q"' >> /etc/profile.d/gdb.sh
+
 USER 1001
 
-CMD "/bin/bash"
+CMD ["/bin/bash", "-l"]
