@@ -17,8 +17,14 @@ git config --system url."https://".insteadOf git://
 git config --system url."https://".insteadOf ssh://
 git config --list
 
-yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
-yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
+if [ -v FIPS ]; then
+  rpm --install /opt/app-root/rhoar-nodejs-fips-${NODE_VERSION}-1.el7.centos.x86_64.rpm
+  rpm --install /opt/app-root/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
+  ln -s /usr/bin/node_fips /usr/bin/node
+else
+  yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm
+  yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}/npm-${NPM_VERSION}-1.${NODE_VERSION}.1.el7.centos.x86_64.rpm
+fi
 
 rpm -V $INSTALL_PKGS
 yum clean all -y

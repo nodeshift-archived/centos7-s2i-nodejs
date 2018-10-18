@@ -16,6 +16,16 @@ export GIT_COMMITTER_NAME="unknown"
 export and GIT_COMMITTER_EMAIL="unknown@localhost.com"
 git --version
 
+if [ "$FIPS_ENABLE" == "true" ]; then
+  export NODE_OPTIONS="--enable-fips"
+  echo "Enabled FIPS support"
+fi
+
+if [ "$FIPS_FORCE" == "true" ]; then
+  export NODE_OPTIONS="--force-fips"
+  echo "Forced FIPS support"
+fi
+
 # Runs the nodejs application server.
 run_node() {
   echo -e "Environment: \n\tDEV_MODE=${DEV_MODE}\n\tNODE_ENV=${NODE_ENV}\n\tDEBUG_PORT=${DEBUG_PORT}"

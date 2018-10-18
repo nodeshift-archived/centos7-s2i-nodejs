@@ -7,6 +7,7 @@ IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
 include versions.mk
 
 TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
+FIPS_TARGET=$(IMAGE_NAME)-fips:$(IMAGE_TAG)
 
 .PHONY: all
 all: build squash test
@@ -16,6 +17,13 @@ build: Dockerfile s2i contrib
 	--build-arg NODE_VERSION=$(NODE_VERSION) \
 	--build-arg NPM_VERSION=$(NPM_VERSION) \
 	-t $(TARGET) .
+
+build-fips: Dockerfile s2i contrib
+	docker build \
+	--build-arg NODE_VERSION=$(NODE_VERSION) \
+	--build-arg NPM_VERSION=$(NPM_VERSION) \
+	--build-arg FIPS=true \
+	-t $(FIPS_TARGET) .
 
 .PHONY: squash
 squash:

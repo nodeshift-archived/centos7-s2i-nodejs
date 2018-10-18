@@ -9,6 +9,7 @@ EXPOSE 8080
 # file for possible values of NPM_RUN
 ARG NODE_VERSION
 ARG NPM_VERSION
+ARG FIPS
 
 ENV NPM_RUN=start \
     NODE_VERSION=${NODE_VERSION} \
@@ -42,6 +43,7 @@ LABEL io.k8s.description="$DESCRIPTION" \
 
 COPY ./s2i/ $STI_SCRIPTS_PATH
 COPY ./contrib/ /opt/app-root
+COPY rhoar-nodejs-fips-8.12.0-1.el7.centos.x86_64.rpm npm-6.4.1-1.8.12.0.1.el7.centos.x86_64.rpm /opt/app-root/
 
 RUN /opt/app-root/etc/install_node.sh
 
