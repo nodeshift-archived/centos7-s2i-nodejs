@@ -54,23 +54,23 @@ else
 		echo "---> Building in development mode"
 		npm run build --if-present
 	else
-		echo "---> Using 'npm install -s --only=production'"
-		npm install -s --only=production
-
 		HAS_BUILD=$(node -e "console.log(require('./package.json').scripts.build ? true : false)")
 
 		# check to see if there is a build script by inspecting the package.json
 		if [ "$HAS_BUILD" == true ]; then
 			# Do a npm install to get the dev depdencies
 			echo "---> Installing dev dependencies"
-			npm install
+			NODE_ENV=development npm install
 			#do not fail when there is no build script
 			echo "---> Building in production mode"
 			npm run build --if-present
-
-			echo "---> Pruning the development dependencies"
-			npm prune
+		else
+			echo "---> Using 'npm install -s --only=production'"
+			npm install -s --only=production
 		fi
+
+		echo "---> Pruning the development dependencies"
+		npm prune
 	fi
 fi
 
