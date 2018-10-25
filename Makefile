@@ -1,5 +1,5 @@
 FROM=centos/s2i-base-centos7
-IMAGE_NAME=bucharestgold/centos7-s2i-nodejs
+IMAGE_NAME=nodeshift/centos7-s2i-nodejs
 
 # These values are changed in each version branch
 # This is the only place they need to be changed
