@@ -38,7 +38,7 @@ LABEL io.k8s.description="$DESCRIPTION" \
       summary="$SUMMARY" \
       description="$DESCRIPTION" \
       version="$NODE_VERSION" \
-      name="bucharestgold/centos7-s2i-nodejs"
+      name="nodeshift/centos7-s2i-nodejs"
 
 COPY ./s2i/ $STI_SCRIPTS_PATH
 COPY ./contrib/ /opt/app-root
