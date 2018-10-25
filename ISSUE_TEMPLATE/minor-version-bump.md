@@ -20,7 +20,7 @@ All of the following tasks occur on this branch.
 
 ```
 node-metadata -i <major-version> | jq '.' > releases.json
-node-image-stream -f releases.json -i bucharestgold/centos7-s2i-nodejs > image-streams.centos7.json
+node-image-stream -f releases.json -i nodeshift/centos7-s2i-nodejs > image-streams.centos7.json
 ```
 
 - [ ] Ensure that `make all` passes successfully.

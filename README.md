@@ -1,17 +1,17 @@
 # OpenShift Builder Images for Node.js Applications
 
 [![Build Status](https://travis-ci.org/bucharest-gold/centos7-s2i-nodejs.svg?branch=master)](https://travis-ci.org/bucharest-gold/centos7-s2i-nodejs)
-[![](https://images.microbadger.com/badges/image/bucharestgold/centos7-s2i-nodejs.svg)](https://microbadger.com/images/bucharestgold/centos7-s2i-nodejs "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/nodeshift/centos7-s2i-nodejs.svg)](https://microbadger.com/images/nodeshift/centos7-s2i-nodejs "Get your own image badge on microbadger.com")
 
 This repository contains sources for an [s2i](https://github.com/openshift/source-to-image) builder image, based on CentOS7 and Node.js RPM releases from https://github.com/bucharest-gold/node-rpm. The RPMs and this builder image are the upstream
 sources for the [Red Hat OpenShift Application Runtimes](https://developers.redhat.com/products/rhoar/overview/) Node.js
 distribution.
 
-[![docker hub stats](http://dockeri.co/image/bucharestgold/centos7-s2i-nodejs)](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs/)
+[![docker hub stats](http://dockeri.co/image/nodeshift/centos7-s2i-nodejs)](https://hub.docker.com/r/nodeshift/centos7-s2i-nodejs/)
 
 ## Versions
 
-Node.js versions [currently provided](https://hub.docker.com/r/bucharestgold/centos7-s2i-nodejs/tags).
+Node.js versions [currently provided](https://hub.docker.com/r/nodeshift/centos7-s2i-nodejs/tags).
 
 Version  | Tag
 -------- | -----
@@ -38,7 +38,7 @@ used to start a build, layering your desired nodejs `REPO_URL` sources into a ce
 image with your selected `RELEASE` of Node.js via the following command format:
 
 ```
-oc new-app bucharestgold/centos7-s2i-nodejs:latest~https://github.com/bucharest-gold/nodejs-rest-http
+oc new-app nodeshift/centos7-s2i-nodejs:latest~https://github.com/bucharest-gold/nodejs-rest-http
 ```
 
 #### OpenShift Catalog
@@ -61,7 +61,7 @@ in Docker.
 This example will produce a new Docker image named `webapp`:
 
 ```
-s2i build https://github.com/bucharest-gold/nodejs-rest-http bucharestgold/centos7-s2i-nodejs:latest webapp
+s2i build https://github.com/bucharest-gold/nodejs-rest-http nodeshift/centos7-s2i-nodejs:latest webapp
 ```
 
 Then you can run the application image like this.

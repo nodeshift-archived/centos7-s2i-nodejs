@@ -120,7 +120,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "docker.io/bucharestgold/centos7-s2i-nodejs:8.x"
+          "name": "docker.io/nodeshift/centos7-s2i-nodejs:8.x"
         },
         "referencePolicy": {
           "type": "Local"
@@ -139,7 +139,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "docker.io/bucharestgold/centos7-s2i-nodejs:10.x"
+          "name": "docker.io/nodeshift/centos7-s2i-nodejs:10.x"
         },
         "referencePolicy": {
           "type": "Local"
