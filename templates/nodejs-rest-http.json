@@ -10,7 +10,7 @@
         "iconClass": "icon-nodejs",
         "openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration and application deployment configuration.",
         "openshift.io/provider-display-name": "Red Hat, Inc.",
-        "openshift.io/documentation-url": "https://github.com/bucharest-gold/nodejs-rest-http",
+        "openshift.io/documentation-url": "https://github.com/nodeshift/nodejs-rest-http",
         "openshift.io/support-url": "https://access.redhat.com",
         "template.openshift.io/bindable": "false"
       }
@@ -239,7 +239,7 @@
         "displayName": "Git Repository URL",
         "description": "The URL of the repository with your application source code.",
         "required": true,
-        "value": "https://github.com/bucharest-gold/nodejs-rest-http.git"
+        "value": "https://github.com/nodeshift/nodejs-rest-http.git"
       },
       {
           "name": "BUILDER_IMAGE",
