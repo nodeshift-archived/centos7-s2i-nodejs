@@ -25,7 +25,7 @@ make build
 Clone a copy of this repository
 
 ```
-git clone https://github.com/bucharest-gold/centos7-s2i-nodejs.git
+git clone https://github.com/nodeshift/centos7-s2i-nodejs.git
 cd centos7-s2i-nodejs
 ```
 
@@ -35,5 +35,5 @@ Make your changes, and be sure that all tests pass.
 make test
 ```
 
-Then open a [pull request](https://github.com/bucharest-gold/centos7-s2i-nodejs/compare).
+Then open a [pull request](https://github.com/nodeshift/centos7-s2i-nodejs/compare).
 

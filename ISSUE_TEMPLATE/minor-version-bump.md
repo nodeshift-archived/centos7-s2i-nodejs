@@ -14,7 +14,7 @@ git checkout v8.x
 
 All of the following tasks occur on this branch.
 
-- [ ] Ensure a [published node-rpm](https://github.com/bucharest-gold/node-rpm/releases) for this version exists.
+- [ ] Ensure a [published node-rpm](https://github.com/nodeshift/node-rpm/releases) for this version exists.
 - [ ] Update versions.mk with the correct version number for `NODE_VERSION` and `NPM_VERSION`.
 - [ ] Update releases.json and image-streams.centos7.json with new version information.
 
