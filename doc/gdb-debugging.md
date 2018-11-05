@@ -6,7 +6,7 @@ We don't provide the debuginfo package, which contains the symbols required for 
 ### OpenShift
 When running an application on OpenShift the pod will not have root access. It is possible to configure such access but that means configuring the OpenShift environment. This section provides an alternative to that which allows debugging the application using a remote gdb session. This is done by starting a container in the same cluster with an image with the node runtime and debuginfo, and then connecting to the pod that is the target of the debugging.
 
-The example used in this document is [nodejs-rest-http](https://github.com/bucharest-gold/nodejs-rest-http).
+The example used in this document is [nodejs-rest-http](https://github.com/nodeshift/nodejs-rest-http).
 
 #### Start/attach to the running process
 First step is to start the gdbserver on the pod that is the target of the debugging session:
@@ -36,7 +36,7 @@ The gdbserver is now listening for connections.
 The next step is to start a container with the debuginfo image in the same cluster.
 
 ```console
-$ oc run -i -t nodejs-debuginfo --image=bucharestgold/centos7-s2i-nodejs-debuginfo:10.x --restart=Never
+$ oc run -i -t nodejs-debuginfo --image=nodeshift/centos7-s2i-nodejs-debuginfo:10.x --restart=Never
 ```
 Running the above command will drop you into the newly created container where 
 the gdb session can be started. This is done using the following command: 
@@ -81,7 +81,7 @@ This option can be used in cases where root access is available.
 
 The following shows an example of installing debuginfo for `v10.11.0`:
 ```console
-yum install -y https://github.com/bucharest-gold/node-rpm/releases/download/v10.11.0/rhoar-nodejs-debuginfo-10.11.0-1.el7.centos.x86_64.rpm
+yum install -y https://github.com/nodeshift/node-rpm/releases/download/v10.11.0/rhoar-nodejs-debuginfo-10.11.0-1.el7.centos.x86_64.rpm
 ```
 After installing the debuginfo package start gdb and attach to the node process:
 ```console

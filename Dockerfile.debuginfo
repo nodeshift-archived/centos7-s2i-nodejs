@@ -2,7 +2,7 @@ FROM centos:centos7
 
 ARG NODE_VERSION
 ARG NPM_VERSION
-ARG DOWNLOAD_URL=https://github.com/bucharest-gold/node-rpm/releases/download/v${NODE_VERSION}
+ARG DOWNLOAD_URL=https://github.com/nodeshift/node-rpm/releases/download/v${NODE_VERSION}
 
 ENV SUMMARY="Image for remote gdb debugging of Node.js $NODE_VERSION applications" \
     DESCRIPTION="This image contains Node.js $NODE_VERSION and gdb allowing \
@@ -15,7 +15,7 @@ LABEL io.k8s.description="$DESCRIPTION" \
       summary="$SUMMARY" \
       description="$DESCRIPTION" \
       version="$NODE_VERSION" \
-      name="bucharestgold/centos7-s2i-nodejs-debuginfo"
+      name="nodeshift/centos7-s2i-nodejs-debuginfo"
 
 RUN echo ${DOWNLOAD_URL}
 RUN yum install -y ${DOWNLOAD_URL}/rhoar-nodejs-${NODE_VERSION}-1.el7.centos.x86_64.rpm \
