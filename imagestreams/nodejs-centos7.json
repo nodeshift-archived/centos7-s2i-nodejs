@@ -144,8 +144,26 @@
         "referencePolicy": {
           "type": "Local"
         }
+      },
+      {
+        "name": "11",
+        "annotations": {
+          "openshift.io/display-name": "Node.js 11",
+          "openshift.io/provider-display-name": "Red Hat, Inc.",
+          "description": "Build and run Node.js 11 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/nodeshift/centos7-s2i-nodejs.",
+          "iconClass": "icon-nodejs",
+          "tags": "builder,nodejs",
+          "version": "11",
+          "sampleRepo": "https://github.com/sclorg/nodejs-ex.git"
+        },
+        "from": {
+          "kind": "DockerImage",
+          "name": "docker.io/nodeshift/centos7-s2i-nodejs:11.x"
+        },
+        "referencePolicy": {
+          "type": "Local"
+        }
       }
-
     ]
   }
 }
