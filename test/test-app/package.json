@@ -17,7 +17,7 @@
     "typescript": "~2.7.1",
     "roi": "*",
     "node-gyp": "*",
-    "world": "github:bucharest-gold/world"
+    "world": "github:nodeshift/world"
   },
   "gypfile": true
 }
