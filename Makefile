@@ -10,7 +10,7 @@ TARGET=$(IMAGE_NAME):$(IMAGE_TAG)
 DEBUG_TARGET=$(IMAGE_NAME)-debuginfo:$(IMAGE_TAG)
 
 .PHONY: all
-all: build build-debuginfo squash test
+all: build build-debuginfo test
 
 build: Dockerfile s2i contrib
 	docker build \
@@ -23,11 +23,6 @@ build-debuginfo: Dockerfile.debuginfo
 	--build-arg NODE_VERSION=$(NODE_VERSION) \
 	--build-arg NPM_VERSION=$(NPM_VERSION) \
 	-t $(DEBUG_TARGET) .
-
-.PHONY: squash
-squash:
-	if [ -z $(SKIP_SQUASH) ] ; then docker-squash -f $(FROM) $(TARGET) -t $(TARGET); fi
-
 
 .PHONY: test
 test: build
