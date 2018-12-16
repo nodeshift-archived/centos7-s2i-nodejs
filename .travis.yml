@@ -1,16 +1,31 @@
+sudo: required
+dist: xenial
+
+language: node_js
+
+jobs:
+  include:
+    - name: "minishift (latest okd)"
+      env: CPLATFORM=minishift
+
+cache:
+  directories:
+  - cache
+  - "~/.minishift/cache"
+  - "~/.minikube/cache"
+
 before_script:
-  - wget https://github.com/openshift/source-to-image/releases/download/v1.1.10/source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz
-  - tar xvzOf source-to-image-v1.1.10-27f0729d-linux-amd64.tar.gz > s2i.bin
-  - sudo mv s2i.bin /usr/bin/s2i
-  - sudo chmod 755 /usr/bin/s2i
+- wget https://github.com/openshift/source-to-image/releases/download/v1.1.13/source-to-image-v1.1.13-b54d75d3-linux-amd64.tar.gz
+- tar xvzOf source-to-image-v1.1.13-b54d75d3-linux-amd64.tar.gz > s2i.bin
+- sudo mv s2i.bin /usr/bin/s2i
+- sudo chmod 755 /usr/bin/s2i
+
+- sudo mount --make-rshared /
+
+- bash -x ci/prepare-host $CPLATFORM
+- bash -x ci/prepare-host virtctl
+- bash -x ci/start-cluster $CPLATFORM
 
 script:
-  - SKIP_SQUASH=true make all
+- timeout 5m bash -x test/test-deploy.sh
 
-notifications:
-  irc: "chat.freenode.net#brass-monkey"
-
-branches:
-  only:
-  - master
-  - /^[8-9]+.*$/
