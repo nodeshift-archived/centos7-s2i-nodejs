@@ -6,7 +6,7 @@ language: node_js
 branches:
   only:
   - master
-  - traviskube
+  - tk
   - "/^v[0-9]/"
 
 jobs:
@@ -33,5 +33,5 @@ before_script:
 - bash -x ci/start-cluster $CPLATFORM
 
 script:
-- timeout 5m bash -x test.sh
+- timeout 5m bash -x test/test-deploy.sh
 
