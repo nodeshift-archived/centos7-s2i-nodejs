@@ -269,6 +269,17 @@ test_image_usage_label() {
   fi
 }
 
+test_scl_nodejs_exists() {
+  local run_cmd="rpm -qa | grep ^rh-nodejs"
+  local expected=""
+  echo "Checking if SCL nodejs packages exists..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if [ ! "$out" == "$expected" ]; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 prepare
 test_image_usage_label
 check_result $?
@@ -350,6 +361,9 @@ test_development_dependencies
 check_result $?
 echo "Testing symlinks"
 test_symlinks
+check_result $?
+
+test_scl_nodejs_exists
 check_result $?
 
 # The argument to clean up is the DEV_MODE
