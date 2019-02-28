@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -ex
-INSTALL_PKGS="centos-release-scl-rh nss_wrapper rh-git29 httpd24-libcurl"
+INSTALL_PKGS="centos-release-scl-rh nss_wrapper rh-git29"
 
 yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon
 
