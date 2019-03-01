@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -ex
-INSTALL_PKGS="centos-release-scl nss_wrapper rh-git29"
+INSTALL_PKGS="centos-release-scl-rh nss_wrapper rh-git29"
 
 yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon rh-nodejs8-runtime
 
@@ -22,6 +22,7 @@ yum install -y https://github.com/nodeshift/node-rpm/releases/download/v${NODE_V
 
 rpm -V $INSTALL_PKGS
 yum clean all -y
+ldconfig
 
 # Install yarn
 npm install -g yarn -s &>/dev/null
