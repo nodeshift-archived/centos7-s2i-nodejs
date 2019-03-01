@@ -25,7 +25,8 @@ building and running various Node.js $NODEJS_VERSION applications and frameworks
 Node.js is a platform built on Chrome's JavaScript runtime for easily building \
 fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model \
 that makes it lightweight and efficient, perfect for data-intensive real-time applications \
-that run across distributed devices."
+that run across distributed devices." \
+    LD_LIBRARY_PATH=/opt/rh/httpd24/root/usr/lib64
 
 LABEL io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="Node.js $NODE_VERSION" \
