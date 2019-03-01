@@ -22,6 +22,7 @@ yum install -y https://github.com/nodeshift/node-rpm/releases/download/v${NODE_V
 
 rpm -V $INSTALL_PKGS
 yum clean all -y
+ldconfig
 
 # Install yarn
 npm install -g yarn -s &>/dev/null

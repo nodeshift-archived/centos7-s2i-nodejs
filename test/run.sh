@@ -259,6 +259,18 @@ url.https://github.com.insteadof=ssh://git@github.com"
   fi
 }
 
+test_git_clone() {
+  local run_cmd="git clone https://github.com/nodeshift/world && ls world/index.js"
+  local expected="world/index.js"
+
+  echo "Checking git clone ..."
+  out=$(docker exec $(cat ${cid_file}) /bin/bash -c "${run_cmd}")
+  if ! echo "${out}" | grep -q "${expected}"; then
+    echo "ERROR[exec /bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
+    return 1
+  fi
+}
+
 test_image_usage_label() {
   local expected="s2i build . nodeshift/centos7-s2i-nodejs myapp"
   echo "Checking image usage label ..."
@@ -325,6 +337,9 @@ test_connection
 check_result $?
 
 test_git_configuration
+check_result $?
+
+test_git_clone
 check_result $?
 
 echo "Testing DEV_MODE=false (default)"
