@@ -24,9 +24,6 @@ rpm -V $INSTALL_PKGS
 yum clean all -y
 ldconfig
 
-# Install yarn
-npm install -g yarn -s &>/dev/null
-
 # Make sure npx is available
 if [ ! -h /usr/bin/npx ] ; then
   ln -s /usr/lib/node_modules/npm/bin/npx-cli.js /usr/bin/npx
