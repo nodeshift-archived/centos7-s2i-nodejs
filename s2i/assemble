@@ -43,7 +43,7 @@ git config --list
 
 if [ ! -z "$YARN_ENABLED" ]; then
 	echo "---> Using 'yarn install' with YARN_ARGS"
-	yarn install $YARN_ARGS
+	npx yarn install $YARN_ARGS
 else
 	echo "---> Installing dependencies"
 	if [ "$DEV_MODE" == true ]; then
