@@ -6,7 +6,7 @@ INSTALL_PKGS="centos-release-scl-rh nss_wrapper rh-git218"
 yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon
 
 yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS
-ln -fs /opt/rh/rh-git29/root/usr/bin/git /usr/bin/git
+ln -fs /opt/rh/rh-git218/root/usr/bin/git /usr/bin/git
 
 # Ensure git uses https instead of ssh for NPM install
 # See: https://github.com/npm/npm/issues/5257
