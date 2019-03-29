@@ -5,7 +5,7 @@ before_script:
   - sudo chmod 755 /usr/bin/s2i
 
 script:
-  - SKIP_SQUASH=true make all
+  - make all
 
 notifications:
   irc: "chat.freenode.net#bucharest-gold"

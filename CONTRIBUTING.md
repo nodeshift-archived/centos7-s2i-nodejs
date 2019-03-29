@@ -10,7 +10,6 @@ following tools.
 
 * Node.js https://nodejs.org/en/download
 * Docker https://www.docker.com/get-docker
-* docker-squash `pip install docker-squash`
 
 ## Building
 
