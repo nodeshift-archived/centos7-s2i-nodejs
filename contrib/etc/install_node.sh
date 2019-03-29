@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -ex
-INSTALL_PKGS="centos-release-scl-rh nss_wrapper rh-git29"
+INSTALL_PKGS="centos-release-scl-rh nss_wrapper rh-git218"
 
 yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon
 
