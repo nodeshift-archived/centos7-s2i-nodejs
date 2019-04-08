@@ -16,7 +16,7 @@ build: Dockerfile s2i contrib
 	docker build \
 	--build-arg NODE_VERSION=$(NODE_VERSION) \
 	--build-arg NPM_VERSION=$(NPM_VERSION) \
-	-t $(TARGET) .
+	--pull -t $(TARGET) .
 
 build-debuginfo: Dockerfile.debuginfo
 	docker build -f Dockerfile.debuginfo \

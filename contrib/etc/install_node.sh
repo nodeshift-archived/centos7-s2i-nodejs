@@ -3,7 +3,7 @@
 set -ex
 INSTALL_PKGS="centos-release-scl nss_wrapper rh-git218 gdb-gdbserver"
 
-yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon rh-nodejs8-runtime
+yum remove -y rh-nodejs8 rh-nodejs8-npm rh-nodejs8-nodejs-nodemon rh-nodejs8-runtime rh-nodejs10 rh-nodejs10-npm rh-nodejs10-nodejs-nodemon rh-nodejs10-runtime
 
 yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS
 ln -fs /opt/rh/rh-git218/root/usr/bin/git /usr/bin/git
