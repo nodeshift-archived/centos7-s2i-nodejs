@@ -34,5 +34,5 @@ tag:
 publish: all
 	echo $(DOCKER_PASS) | docker login -u $(DOCKER_USER) --password-stdin
 	docker push $(TARGET)
-	docker push $(IMAGE_NAME):$(NODE_VERSION)
+	#docker push $(IMAGE_NAME):$(NODE_VERSION)
 	if [ ! -z $(LTS_TAG) ]; then docker push $(IMAGE_NAME):$(LTS_TAG); fi
