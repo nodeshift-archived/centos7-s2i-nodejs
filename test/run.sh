@@ -153,6 +153,13 @@ test_builder_node_version() {
     echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected_var}', got '${out}'"
     return 1
   fi
+
+  echo "Checking NPM_CONFIG_TARBALL path"
+  out=$(docker run ${BUILDER} /bin/bash -c 'ls /usr/share/node/node-v${NODE_VERSION}-headers.tar.gz')
+  if ! echo "${out}" | grep -q "${expected_var}"; then
+    echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected_var}', got '${out}'"
+    return 1
+  fi
 }
 
 test_nss_wrapper() {
