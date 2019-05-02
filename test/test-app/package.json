@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@types/node": "~9.4.0",
-    "typescript": "~2.7.1",
+    "node-gyp": "^4.0.0",
     "roi": "*",
-    "node-gyp": "*",
-    "world": "github:bucharest-gold/world"
+    "typescript": "~2.7.1",
+    "world": "github:nodeshift/world"
   },
   "gypfile": true
 }
