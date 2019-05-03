@@ -17,12 +17,12 @@
           "description": "Build and run Node.js applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/nodeshift/centos7-s2i-nodejs.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Node.js available on OpenShift, including major versions updates.",
           "iconClass": "icon-nodejs",
           "tags": "builder,nodejs",
-          "supports":"nodejs",
+          "supports": "nodejs",
           "sampleRepo": "https://github.com/sclorg/nodejs-ex.git"
         },
         "from": {
           "kind": "ImageStreamTag",
-          "name": "11"
+          "name": "12"
         },
         "referencePolicy": {
           "type": "Local"
@@ -36,7 +36,7 @@
           "description": "DEPRECATED: Build and run Node.js 0.10 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/0.10/README.md.",
           "iconClass": "icon-nodejs",
           "tags": "hidden,nodejs",
-          "supports":"nodejs:0.10,nodejs:0.1,nodejs",
+          "supports": "nodejs:0.10,nodejs:0.1,nodejs",
           "version": "0.10",
           "sampleRepo": "https://github.com/sclorg/nodejs-ex.git"
         },
@@ -56,7 +56,7 @@
           "description": "Build and run Node.js 4 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/4/README.md.",
           "iconClass": "icon-nodejs",
           "tags": "hidden,builder,nodejs",
-          "supports":"nodejs:4,nodejs",
+          "supports": "nodejs:4,nodejs",
           "version": "4",
           "sampleRepo": "https://github.com/sclorg/nodejs-ex.git"
         },
@@ -76,7 +76,7 @@
           "description": "Build and run Node.js 6 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/6/README.md.",
           "iconClass": "icon-nodejs",
           "tags": "builder,nodejs",
-          "supports":"nodejs:6,nodejs",
+          "supports": "nodejs:6,nodejs",
           "version": "6",
           "sampleRepo": "https://github.com/sclorg/nodejs-ex.git"
         },
@@ -159,6 +159,25 @@
         "from": {
           "kind": "DockerImage",
           "name": "docker.io/nodeshift/centos7-s2i-nodejs:11.x"
+        },
+        "referencePolicy": {
+          "type": "Local"
+        }
+      },
+      {
+        "name": "12",
+        "annotations": {
+          "openshift.io/display-name": "Node.js 12",
+          "openshift.io/provider-display-name": "Red Hat, Inc.",
+          "description": "Build and run Node.js 12 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/nodeshift/centos7-s2i-nodejs.",
+          "iconClass": "icon-nodejs",
+          "tags": "builder,nodejs",
+          "version": "12",
+          "sampleRepo": "https://github.com/sclorg/nodejs-ex.git"
+        },
+        "from": {
+          "kind": "DockerImage",
+          "name": "docker.io/nodeshift/centos7-s2i-nodejs:12.x"
         },
         "referencePolicy": {
           "type": "Local"
