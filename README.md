@@ -15,6 +15,7 @@ Node.js versions [currently provided](https://hub.docker.com/r/nodeshift/centos7
 
 Version  | Tag
 -------- | -----
+`12.2.0` | (12.x, latest)
 `11.0.0` | (11.x, latest)
 `10.12.0`| (10.x)
 `9.11.1` | (9.x)
