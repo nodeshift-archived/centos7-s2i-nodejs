@@ -15,7 +15,6 @@
   "dependencies": {
     "@types/node": "~9.4.0",
     "node-gyp": "^4.0.0",
-    "roi": "*",
     "typescript": "~2.7.1",
     "world": "github:nodeshift/world"
   },
