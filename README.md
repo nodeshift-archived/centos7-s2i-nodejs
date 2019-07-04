@@ -83,6 +83,7 @@ NPM_MIRROR  | Sets the npm registry URL
 NODE_ENV    | Node.js runtime mode (default: "production")
 HTTP_PROXY  | use an npm proxy during assembly
 HTTPS_PROXY | use an npm proxy during assembly
+NO_PROXY    | set URLs that should be excluded from proxying during assembly
 
 One way to define a set of environment variables is to include them as key value pairs
 in a `.s2i/environment` file in your source repository.
