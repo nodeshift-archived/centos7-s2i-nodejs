@@ -31,6 +31,16 @@ if [ ! -z $https_proxy ]; then
 	npm config set https-proxy $https_proxy
 fi
 
+if [ ! -z $NO_PROXY ]; then
+	echo "---> Setting npm no proxy config to $NO_PROXY"
+	npm config set no-proxy $NO_PROXY
+fi
+
+if [ ! -z $no_proxy ]; then
+	echo "---> Setting npm no proxy config to $no_proxy"
+	npm config set no-proxy $no_proxy
+fi
+
 # Change the npm registry mirror if provided
 if [ ! -z "$NPM_MIRROR" ]; then
 	echo "---> Setting the npm package mirror to $NPM_MIRROR"
