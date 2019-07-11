@@ -29,6 +29,9 @@ if [ ! -h /usr/bin/npx ] ; then
   ln -s /usr/lib/node_modules/npm/bin/npx-cli.js /usr/bin/npx
 fi
 
+# Install YARN package manager
+npm install --global yarn
+
 echo "---> Setting directory write permissions"
 fix-permissions /opt/app-root
 
