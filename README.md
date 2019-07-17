@@ -62,7 +62,7 @@ in Docker.
 This example will produce a new Docker image named `webapp`:
 
 ```
-s2i build https://github.com/nodeshift/nodejs-rest-http nodeshift/centos7-s2i-nodejs:latest webapp
+s2i build https://github.com/nodeshift-starters/nodejs-rest-http nodeshift/centos7-s2i-nodejs:latest webapp
 ```
 
 Then you can run the application image like this.
