@@ -15,9 +15,9 @@ Node.js versions [currently provided](https://hub.docker.com/r/nodeshift/centos7
 
 Version  | Tag
 -------- | -----
-`12.10.0` | (12.x, latest)
+`12.11.1` | (12.x, latest)
 `10.16.3`| (10.x, Dubnium)
-`8.16.1` | (8.x, Carbon)
+`8.16.2` | (8.x, Carbon)
 
 
 ## Usage
