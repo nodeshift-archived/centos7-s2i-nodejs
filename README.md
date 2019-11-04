@@ -1,4 +1,6 @@
-# OpenShift Builder Images for Node.js Applications
+# DEPRECATED
+
+This is no longer supported, please consider using [ubi8/nodejs-10](https://access.redhat.com/containers/?tab=overview#/registry.access.redhat.com/ubi8/nodejs-10) instead.
 
 [![Build Status](https://travis-ci.org/nodeshift/centos7-s2i-nodejs.svg?branch=master)](https://travis-ci.org/nodeshift/centos7-s2i-nodejs)
 [![](https://images.microbadger.com/badges/image/nodeshift/centos7-s2i-nodejs.svg)](https://microbadger.com/images/nodeshift/centos7-s2i-nodejs "Get your own image badge on microbadger.com")
